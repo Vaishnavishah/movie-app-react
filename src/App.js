@@ -16,7 +16,6 @@ import Profile from "./components/profile";
 import Login from "./components/login";
 import SignUp from "./components/signup";
 import MovieDetail from "./components/moviedetail";
-import PopularMovies from "./components/popular-movies";
 
 const store = configureStore({
  reducer: {reviews: reviewReducer}});
@@ -37,7 +36,7 @@ function App() {
                 </div>
                 <div className="col-xl-10 col-lg-7 col-10 d-flex flex-column gap-1">
                   <Routes>
-                    <Route path="/" element={<PopularMovies/>}/>
+                    <Route path="/" element={<Movies/>}/>
                     <Route path="/series" element={<Series/>}/>
                     <Route path="/profile" element={<Profile/>}/>
                     <Route path="/login" element={<Login/>}/>

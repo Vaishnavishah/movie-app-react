@@ -7,19 +7,15 @@ import Popup from "../moviedetail/Popup";
 function Movies() {
 
     const [state, setState] = useState({
-                                           s: " ",
+                                           s: "",
                                            results: [],
                                            selected: {}
                                        });
-
-    const [homeState, setHomeState] = useState({results:[]});
-    const omdbapiurl = "http://www.omdbapi.com/?apikey=dfe6d885";
-    const tmdbapiurl = "https://api.themoviedb.org/3/movie/popular?api_key=0d0e5e0e7c64ee865ffaf322789a7bda&language=en-US`";
+    const apiurl = "http://www.omdbapi.com/?apikey=dfe6d885";
 
     const search = (e) => {
         if (e.key === "Enter") {
-            console.log("state.s", state.s);
-            axios(omdbapiurl + "&s=" + state.s).then(({ data }) => {
+            axios(apiurl + "&s=" + state.s).then(({ data }) => {
                 let results = data.Search;
 
                 setState(prevState => {
@@ -27,17 +23,6 @@ function Movies() {
                 })
             });
         }
-    }
-
-    const popular = () => {
-        axios(tmdbapiurl).then(({ data }) => {
-                    let results = data.Search;
-
-                    setHomeState(prevState => {
-                        return { ...prevState, results: results }
-                    })
-                });
-
     }
 
     const handleInput = (e) => {
@@ -49,7 +34,7 @@ function Movies() {
     }
 
     const openPopup = id => {
-        axios(omdbapiurl + "&i=" + id).then(({ data }) => {
+        axios(apiurl + "&i=" + id).then(({ data }) => {
             let result = data;
 
             console.log(result);
