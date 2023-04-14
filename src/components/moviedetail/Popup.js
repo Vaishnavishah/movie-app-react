@@ -30,16 +30,17 @@ const handleSubmit = () => {
 					<p>{selected.Plot}</p>
 					<p><b> Reviews </b></p>
 					<ul className="list-group">
-                            {
-                              review_list.map(review =>
-                              <li className = "list-group-item">
-                                <ReviewItem
-                                  key={review._id}
-                                  review = {review}
-                                  />
-                                  </li>
-                              )
-                            }
+					{review_list.map((review) => (
+                        review.movieID === selected.imdbID
+                          ? (<li className = "list-group-item">
+                              <ReviewItem
+                                key={review._id}
+                                review = {review}
+                                />
+                                </li>)
+                          : null
+                      ))}
+
                           </ul>
 					<form>
 					    <textarea  name="review"
