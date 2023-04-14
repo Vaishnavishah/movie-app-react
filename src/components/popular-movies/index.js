@@ -20,7 +20,6 @@ function PopularMovies() {
         axios(tmdbapiurl).then(({ data }) => {
 
                     let results = data.results;
-                    console.log(results);
                     setHomeState(prevState => {
                         return { ...prevState, results: results }
                     })
@@ -30,8 +29,6 @@ function PopularMovies() {
 
     const handleInput = (e) => {
             let s = e.target.value;
-
-            console.log("Inside if");
             setState(prevState => {
                             return { ...prevState, s: s }
                         });
@@ -42,8 +39,6 @@ function PopularMovies() {
     const search = (e) => {
             if (e.key === "Enter") {
                 if(state.s) {
-                    console.log("Inside if 2")
-                    console.log("state.s", state.s);
                     axios(omdbapiurl + "&s=" + state.s).then(({ data }) => {
                         let results = data.Search;
 
@@ -64,8 +59,6 @@ function PopularMovies() {
     const openPopup = id => {
             axios(omdbapiurl + "&i=" + id).then(({ data }) => {
                 let result = data;
-
-                console.log(result);
 
                 setState(prevState => {
                     return { ...prevState, selected: result }
