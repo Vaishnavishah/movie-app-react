@@ -1,4 +1,3 @@
-
 import React, {useState, useEffect} from "react";
 import axios from "axios";
 import Popup from "../moviedetail/Popup";
@@ -31,12 +30,12 @@ function PopularMovies() {
 
     const handleInput = (e) => {
             let s = e.target.value;
-        if(s) {
+
             console.log("Inside if");
             setState(prevState => {
                             return { ...prevState, s: s }
                         });
-        }
+
 
         }
 
@@ -52,6 +51,12 @@ function PopularMovies() {
                             return { ...prevState, results: results }
                         })
                     });
+                } else {
+                    setState({
+                             s: "",
+                             results: [],
+                             selected: {}
+                     });
                 }
             }
         }
