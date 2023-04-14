@@ -1,11 +1,14 @@
 import React, {useState} from "react";
-import {createReview} from "../reducers/review-reducer";
+import {createReview} from "../../reducers/review-reducer";
 import {useDispatch} from "react-redux";
+import {useSelector} from "react-redux";
+import ReviewItem from './ReviewItem'
 
 
 function Popup({ selected, closePopup }) {
 let [writeReview, setWriteReview] = useState('');
   const dispatch = useDispatch();
+  const review_list = useSelector(state => state.reviews)
 const handleSubmit = () => {
     const newReview = {
             review: writeReview,
@@ -15,6 +18,8 @@ const handleSubmit = () => {
           console.log(newReview);
 
 }
+
+
 	return (
 		<section className="popup">
 			<div className="content">
@@ -24,6 +29,19 @@ const handleSubmit = () => {
 					<img src={selected.Poster} />
 					<p>{selected.Plot}</p>
 					<p><b> Reviews </b></p>
+					<ul className="list-group">
+					{review_list.map((review) => (
+                        review.movieID === selected.imdbID
+                          ? (<li className = "list-group-item">
+                              <ReviewItem
+                                key={review._id}
+                                review = {review}
+                                />
+                                </li>)
+                          : null
+                      ))}
+
+                          </ul>
 					<form>
 					    <textarea  name="review"
                                    id="write-review"

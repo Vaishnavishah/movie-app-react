@@ -1,81 +1,55 @@
-import React, { useState } from 'react'
-import axios from 'axios'
-import {useSelector} from "react-redux";
-
+import React, { useState } from 'react';
+import axios from 'axios';
 import reviewReducer from './reducers/review-reducer';
-
-import { configureStore }
-  from '@reduxjs/toolkit';
+import {Routes, Route} from "react-router";
+import { configureStore } from '@reduxjs/toolkit';
 import {Provider} from "react-redux";
-import Search from './components/Search'
-import Results from './components/Results'
-import Popup from './components/Popup'
+import Search from './components/movies/Search';
+import Results from './components/movies/Results';
+import Popup from './components/moviedetail/Popup';
+import {BrowserRouter} from "react-router-dom";
+
+import NavigationSidebar from "./components/navigation-sidebar";
+import Movies from "./components/movies";
+import Series from "./components/series";
+import Profile from "./components/profile";
+import Login from "./components/login";
+import SignUp from "./components/signup";
+import MovieDetail from "./components/moviedetail";
+import PopularMovies from "./components/popular-movies";
 
 const store = configureStore({
  reducer: {reviews: reviewReducer}});
 
 function App() {
 
-  const [state, setState] = useState({
-    s: "",
-    results: [],
-    selected: {}
-  });
-  const apiurl = "http://www.omdbapi.com/?apikey=dfe6d885";
-
-  const search = (e) => {
-    if (e.key === "Enter") {
-      axios(apiurl + "&s=" + state.s).then(({ data }) => {
-        let results = data.Search;
-
-        setState(prevState => {
-          return { ...prevState, results: results }
-        })
-      });
-    }
-  }
-  
-  const handleInput = (e) => {
-    let s = e.target.value;
-
-    setState(prevState => {
-      return { ...prevState, s: s }
-    });
-  }
-
-  const openPopup = id => {
-    axios(apiurl + "&i=" + id).then(({ data }) => {
-      let result = data;
-
-      console.log(result);
-
-      setState(prevState => {
-        return { ...prevState, selected: result }
-      });
-    });
-  }
-
-  const closePopup = () => {
-    setState(prevState => {
-      return { ...prevState, selected: {} }
-    });
-  }
-
   return (
-  <Provider store = {store}>
-    <div className="App">
-      <header>
-        <h1>Movie Database</h1>
-      </header>
-      <main>
-        <Search handleInput={handleInput} search={search} />
-
-        <Results results={state.results} openPopup={openPopup} />
-
-        {(typeof state.selected.Title != "undefined") ? <Popup selected={state.selected} closePopup={closePopup} /> : false}
-      </main>
-    </div>
-    </Provider>
+      <BrowserRouter>
+        <Provider store = {store}>
+          <div className="container">
+            <header>
+              <h1>Movie Database</h1>
+            </header>
+            <main>
+              <div className="row mt-6">
+                <div className="col-2 col-md-2 col-lg-1 col-xl-2">
+                  <NavigationSidebar active="explore"/>
+                </div>
+                <div className="col-xl-10 col-lg-7 col-10 d-flex flex-column gap-1">
+                  <Routes>
+                    <Route path="/" element={<PopularMovies/>}/>
+                    <Route path="/series" element={<Series/>}/>
+                    <Route path="/profile" element={<Profile/>}/>
+                    <Route path="/login" element={<Login/>}/>
+                    <Route path="/signup" element={<SignUp/>}/>
+                    <Route path="/movies/movie" element={<MovieDetail/>}/>
+                  </Routes>
+                </div>
+              </div>
+            </main>
+          </div>
+          </Provider>
+      </BrowserRouter>
   );
 }
 
