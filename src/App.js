@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import reviewReducer from './reducers/review-reducer';
+import favouriteReducer from './reducers/favourite-reducer';
 import {Routes, Route} from "react-router";
 import { configureStore } from '@reduxjs/toolkit';
 import {Provider} from "react-redux";
@@ -17,9 +18,10 @@ import Login from "./components/login";
 import SignUp from "./components/signup";
 import MovieDetail from "./components/moviedetail";
 import PopularMovies from "./components/popular-movies";
+import Favourites from "./components/favourites";
 
 const store = configureStore({
- reducer: {reviews: reviewReducer}});
+ reducer: {reviews: reviewReducer, favourites: favouriteReducer}});
 
 function App() {
 
@@ -43,6 +45,7 @@ function App() {
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/signup" element={<SignUp/>}/>
                     <Route path="/movies/movie" element={<MovieDetail/>}/>
+                    <Route path="/favourites" element={<Favourites/>}/>
                   </Routes>
                 </div>
               </div>
