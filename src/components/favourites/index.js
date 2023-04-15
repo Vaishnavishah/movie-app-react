@@ -11,22 +11,9 @@ const [state, setState] = useState([]);
 const omdbapiurl = "http://www.omdbapi.com/?apikey=dfe6d885";
 
 const favouriteMovies = async () => {
-    console.log(favouriteArray)
     const promises = favouriteArray.map(favourite => axios(omdbapiurl + "&i=" + favourite.movieID))
-     const data = await Promise.all(promises);
-     setState(data);
-//    favouriteArray.map((favourite) =>
-//    axios(omdbapiurl + "&i=" + favourite.movieID).then(({ data }) => {
-//
-//     console.log(data);
-//                    setState(prevState => {return [...state, data]});
-//                })
-//
-//    );
-
-
-    console.log("State", state);
-    console.log("State length", state.length);
+         const data = await Promise.all(promises);
+         setState(data.map((result) => result.data));
 }
 
 useEffect(() => {
