@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import reviewReducer from './reducers/review-reducer';
+import authReducer from './reducers/auth-reducer';
 import {Routes, Route} from "react-router";
 import { configureStore } from '@reduxjs/toolkit';
 import {Provider} from "react-redux";
-import Search from './components/movies/Search';
-import Results from './components/movies/Results';
-import Popup from './components/moviedetail/Popup';
 import {BrowserRouter} from "react-router-dom";
 
 import NavigationSidebar from "./components/navigation-sidebar";
@@ -18,7 +16,7 @@ import SignUp from "./components/signup";
 import MovieDetail from "./components/moviedetail";
 
 const store = configureStore({
- reducer: {reviews: reviewReducer}});
+ reducer: {reviews: reviewReducer, user: authReducer}});
 
 function App() {
 
@@ -39,6 +37,7 @@ function App() {
                     <Route path="/" element={<Movies/>}/>
                     <Route path="/series" element={<Series/>}/>
                     <Route path="/profile" element={<Profile/>}/>
+                    <Route path="/profile/:uid" element={<Profile/>}/>
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/signup" element={<SignUp/>}/>
                     <Route path="/movies/movie" element={<MovieDetail/>}/>
