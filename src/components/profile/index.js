@@ -12,6 +12,9 @@ function Profile() {
     const navigate = useNavigate();
     const save = () => { dispatch(updateUserThunk(profile)); };
     const {pathname} = useLocation();
+    const openComponent = useCallback(() => {
+        navigate('/profile/edit');
+    }, [])
     const func = async () => {
         // run asynchronous tasks here
         const { payload } = await dispatch(profileThunk());
