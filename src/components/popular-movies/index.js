@@ -32,8 +32,6 @@ function PopularMovies() {
             setState(prevState => {
                             return { ...prevState, s: s }
                         });
-
-
         }
 
     const search = (e) => {

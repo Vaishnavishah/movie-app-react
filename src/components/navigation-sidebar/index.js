@@ -17,6 +17,9 @@ const NavigationSidebar = () => {
             <Link to="/series" className={`list-group-item ${active === 'series'?'active': ''}`}>
                 Series
             </Link>
+            <Link to="/favourites" className={`list-group-item ${active === 'favourites'?'active': ''}`}>
+                            Favourites
+                        </Link>
             <Link to="/profile" className={`list-group-item ${active === 'profile'?'active':''}`}>
                 Profile
             </Link>
