@@ -19,7 +19,7 @@ const handleHeartClick = () => {
 		<div className="result" onClick={() => openPopup(result.imdbID)}>
 		    <div class="starContainer">
 			    <img src={result.Poster} />
-			    <span class="star"> <FontAwesomeIcon style ={{padding:"2px;"}} icon={solid('heart')} onClick={() => handleHeartClick()} /> </span>
+			    <span class="star" onClick={() => handleHeartClick()}> <FontAwesomeIcon style ={{padding:"2px;"}} icon={solid('heart')}/> </span>
 			</div>
 			<h3>{result.Title}</h3>
 

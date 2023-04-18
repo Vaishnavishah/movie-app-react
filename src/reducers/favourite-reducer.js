@@ -9,11 +9,14 @@ const favouriteSlice = createSlice({
  initialState: [],
  reducers: {
         createFavourite(state, action) {
-             state.unshift({
-               ...action.payload,
-               ...currentUser,
-               _id: (new Date()).getTime(),
-             })
+        const movieNdx = state.findIndex((t) => t.movieID === action.payload.movieID);
+        if(movieNdx === -1) {
+                 state.unshift({
+                   ...action.payload,
+                   ...currentUser,
+                   _id: (new Date()).getTime(),
+                 })
+               }
            }
 
          }
