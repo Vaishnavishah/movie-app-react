@@ -12,12 +12,13 @@ function Profile() {
     const navigate = useNavigate();
     const save = () => { dispatch(updateUserThunk(profile)); };
     const {pathname} = useLocation();
-    const openComponent = useCallback(() => {
-        navigate('/profile/edit');
-    }, [])
+    // const openComponent = useCallback(() => {
+    //     navigate('/profile/edit');
+    // }, [])
     const func = async () => {
         // run asynchronous tasks here
         const { payload } = await dispatch(profileThunk());
+        console.log(payload);
         if (payload === undefined) {
             await navigate("/signup");
             return null;
@@ -70,6 +71,58 @@ function Profile() {
                                }}
                         />
                     </div>
+                    <div>
+                        <label>Date of Birth</label>
+                        <input type="text"
+                               value={profile.dob}
+                               onChange={(event) => {
+                                   const newProfile = {
+                                       ...profile,
+                                       dob: event.target.value,
+                                   };
+                                   setProfile(newProfile);
+                               }}
+                        />
+                    </div>
+                    <div>
+                        <label>Profile Photo</label>
+                        <input type="text"
+                               value={profile.profilePhoto}
+                               onChange={(event) => {
+                                   const newProfile = {
+                                       ...profile,
+                                       profilePhoto: event.target.value,
+                                   };
+                                   setProfile(newProfile);
+                               }}
+                        />
+                    </div>
+                    <div>
+                        <label>Email</label>
+                        <input type="text"
+                               value={profile.email}
+                               onChange={(event) => {
+                                   const newProfile = {
+                                       ...profile,
+                                       email: event.target.value,
+                                   };
+                                   setProfile(newProfile);
+                               }}
+                        />
+                    </div>
+                    <div>
+                        <label>Genres</label>
+                        <input type="text"
+                               value={profile.genre}
+                               onChange={(event) => {
+                                   const newProfile = {
+                                       ...profile,
+                                       genre: event.target.value,
+                                   };
+                                   setProfile(newProfile);
+                               }}
+                        />
+                    </div>
                 </div>
             )}
             <button
@@ -78,6 +131,11 @@ function Profile() {
                     navigate("/login");
                 }}>
                 Logout</button>
+            <button
+                onClick={() => {
+                    dispatch(updateUserThunk(profile));
+                }}>
+                Update</button>
             <button onClick={save}>Save</button>
         </div>
     );

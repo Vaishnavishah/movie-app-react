@@ -11,6 +11,7 @@ const Signup = () => {
     const [profilePhoto, setprofilePhoto] = useState("");
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
+    const [genre, setGenre] = useState("");
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -18,7 +19,7 @@ const Signup = () => {
       username:username,
       firstName: firstName,
       lastName: lastName,
-      dob: dob,
+      dob: dob, genre: genre,
       profilePhoto: profilePhoto,
         password: password,
         email: email
@@ -56,6 +57,9 @@ const Signup = () => {
             <input className="mb-2 form-control" type="text" value={email}
                    onChange={(event) => setEmail(event.target.value)}
                    placeholder="Email"/>
+            <input className="mb-2 form-control" type="text" value={genre}
+                   onChange={(event) => setGenre(event.target.value)}
+                   placeholder="Genres"/>
             <button onClick={signup}
                     className="btn btn-primary mb-5">Signup
             </button>
