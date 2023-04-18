@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import reviewReducer from './reducers/review-reducer';
-import favouriteReducer from './reducers/favourite-reducer';
 import {Routes, Route} from "react-router";
 import { configureStore } from '@reduxjs/toolkit';
 import {Provider} from "react-redux";
@@ -10,6 +9,9 @@ import Results from './components/movies/Results';
 import Popup from './components/moviedetail/Popup';
 import {BrowserRouter} from "react-router-dom";
 
+import favouriteReducer from "./reducers/favourite-reducer";
+import Favourites from "./components/favourites";
+import authReducer from "./reducers/auth-reducer";
 import NavigationSidebar from "./components/navigation-sidebar";
 import Movies from "./components/movies";
 import Series from "./components/series";
@@ -18,10 +20,10 @@ import Login from "./components/login";
 import SignUp from "./components/signup";
 import MovieDetail from "./components/moviedetail";
 import PopularMovies from "./components/popular-movies";
-import Favourites from "./components/favourites";
 
 const store = configureStore({
- reducer: {reviews: reviewReducer, favourites: favouriteReducer}});
+ reducer: {reviews: reviewReducer, user: authReducer, favourites: favouriteReducer}});
+
 
 function App() {
 
@@ -42,6 +44,7 @@ function App() {
                     <Route path="/" element={<PopularMovies/>}/>
                     <Route path="/series" element={<Series/>}/>
                     <Route path="/profile" element={<Profile/>}/>
+                    <Route path="/profile/:uid" element={<Profile/>}/>
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/signup" element={<SignUp/>}/>
                     <Route path="/movies/movie" element={<MovieDetail/>}/>
