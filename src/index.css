@@ -95,8 +95,8 @@ section {
 	width: 100vw;
 	height: 100vh;
 	background-color: #445565;
-
 	overflow-y: scroll;
+	z-index:999;
 }
 
 .popup .content {
@@ -165,7 +165,6 @@ section {
 	padding: 15px 30px;
 	font-size: 18px;
 	font-weight: 700;
-
 	background: #4484C4;
 	color: #FFF;
 	border-radius: 8px;
@@ -182,3 +181,24 @@ section {
 	background: #223343;
 }
 
+
+.star {
+background-color: white;
+
+    position: absolute;
+    top: 10px;
+    cursor: pointer;
+    z-index: 1;
+    width:30px;
+}
+.star:hover {
+    color: gold;
+}
+
+.starContainer {
+   position: relative;
+    width: 33.333%;
+    min-width: 235.33px;
+    display: flex;
+    flex-direction: column;
+}
