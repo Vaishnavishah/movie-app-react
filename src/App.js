@@ -9,6 +9,9 @@ import Results from './components/movies/Results';
 import Popup from './components/moviedetail/Popup';
 import {BrowserRouter} from "react-router-dom";
 
+import favouriteReducer from "./reducers/favourite-reducer";
+import Favourites from "./components/favourites";
+import authReducer from "./reducers/auth-reducer";
 import NavigationSidebar from "./components/navigation-sidebar";
 import Movies from "./components/movies";
 import Series from "./components/series";
@@ -20,7 +23,7 @@ import PopularMovies from "./components/popular-movies";
 
 const store = configureStore({
  reducer: {reviews: reviewReducer, user: authReducer, favourites: favouriteReducer}});
- r
+
 
 function App() {
 
@@ -40,6 +43,7 @@ function App() {
                   <Routes>
                     <Route path="/" element={<PopularMovies/>}/>
                     <Route path="/series" element={<Series/>}/>
+                    <Route path="/profile" element={<Profile/>}/>
                     <Route path="/profile/:uid" element={<Profile/>}/>
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/signup" element={<SignUp/>}/>

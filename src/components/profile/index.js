@@ -20,7 +20,7 @@ function Profile() {
         const { payload } = await dispatch(profileThunk());
         console.log(payload);
         if (payload === undefined) {
-            await navigate("/signup");
+            navigate("/login");
             return null;
         } else {
             await setProfile(payload);
