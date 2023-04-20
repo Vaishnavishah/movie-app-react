@@ -6,7 +6,7 @@ const currentUser = {
 };
 
 const initialState = {
-   favourites: [],
+   favouriteArray: [],
    loading: false
 }
 
@@ -16,14 +16,15 @@ const favouriteSlice = createSlice({
  extraReducers: {
      [getFavouriteByUserThunk.pending]:
         (state) => {
+           console.log("here")
            state.loading = true
-           state.favourites = []
+           state.favouriteArray = []
      },
      [getFavouriteByUserThunk.fulfilled]:
         (state, { payload }) => {
             console.log("payload: " + {payload});
            state.loading = false
-           state.favourites = payload
+           state.favouriteArray = payload
            console.log(state.favourites)
      },
      [getFavouriteByUserThunk.rejected]:
@@ -34,14 +35,14 @@ const favouriteSlice = createSlice({
      [deleteFavouriteThunk.fulfilled] :
            (state, { payload }) => {
            state.loading = false
-           state.favourites = state.favourites
+           state.favouriteArray = state.favouriteArray
              .filter(t => (t.userID !== payload.usedID && t.movieID !== payload.movieID) )
          },
      [createFavouriteThunk.fulfilled]:
            (state, { payload }) => {
              console.log(payload);
              state.loading = false
-             state.favourites.push(payload)
+             state.favouriteArray.push(payload)
          },
    }
 

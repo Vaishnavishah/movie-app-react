@@ -22,7 +22,7 @@ import MovieDetail from "./components/moviedetail";
 import PopularMovies from "./components/popular-movies";
 
 const store = configureStore({
- reducer: {reviews: reviewReducer, user: authReducer, favourites: favouriteReducer}});
+ reducer: {reviews: reviewReducer, user: authReducer, favourite: favouriteReducer}});
 
 
 function App() {
