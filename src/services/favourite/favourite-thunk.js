@@ -5,19 +5,19 @@ import * as favouriteService from "./favourite-service";
 export const createFavouriteThunk = createAsyncThunk(
   'favourite/createFavourite',
   async (favourite) => {
-    const newFavourite = await service.createFavourite(favourite)
+    const newFavourite = await favouriteService.createFavourite(favourite)
     return newFavourite
 });
 
 export const getFavouriteByUserThunk = createAsyncThunk(
-  'favourite/getFavouriteByUser', async () =>
-    await service.getFavouriteByUser()
+  'favourite/getFavouriteByUser', async (uid) =>
+    await favouriteService.getFavouriteByUser(uid)
 );
 
-export const deleteFavourite = createAsyncThunk(
+export const deleteFavouriteThunk = createAsyncThunk(
   'favourite/deleteFavourite',
   async (uid, mid) => {
-    await service.deleteFavourite(uid, mid)
+    await favouriteService.deleteFavourite(uid, mid)
     return mid
-})
+});
 

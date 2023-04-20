@@ -1,11 +1,15 @@
 import React, {useState, useEffect} from "react";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import axios from "axios";
 import Results from "../movies/Results";
 import Popup from "../moviedetail/Popup";
+import {getFavouriteByUserThunk} from "../../services/favourite/favourite-thunk";
 
 function Favourite() {
-const favouriteArray = useSelector(state => state.favourites);
+const {favouriteArray, loading} = useSelector(
+  state => state.favourites);
+const dispatch = useDispatch();
+const uid = 1;
 
 const [favouriteState, setFavouriteState] = useState([]);
 const [state, setState] = useState({s: " ",
@@ -15,12 +19,15 @@ const [state, setState] = useState({s: " ",
 const omdbapiurl = "http://www.omdbapi.com/?apikey=dfe6d885";
 
 const favouriteMovies = async () => {
+    await console.log(favouriteArray);
     const promises = favouriteArray.map(favourite => axios(omdbapiurl + "&i=" + favourite.movieID))
          const data = await Promise.all(promises);
          setFavouriteState(data.map((result) => result.data));
 }
 
-useEffect(() => {
+useEffect(async () => {
+
+   await dispatch(getFavouriteByUserThunk(uid));
    favouriteMovies();
  }, [])
 
