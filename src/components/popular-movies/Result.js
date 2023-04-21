@@ -36,7 +36,7 @@ const tmdbapiurl = "https://api.themoviedb.org/3/movie/" + result.id +  "?api_ke
 		<div className="result" onClick={() => popular()}>
 		<div class="starContainer">
 			<img src={"http://image.tmdb.org/t/p/original" + result.poster_path} />
-			<span class="star" onClick={() => handleHeartClick()}> <FontAwesomeIcon style ={{padding:"2px;"}} icon={solid('heart')} onClick={() => handleHeartClick()} /> </span>
+			<span class="star" onClick={() => handleHeartClick()}> <FontAwesomeIcon style ={{padding:"2px;"}} icon={solid('heart')} /> </span>
 		</div>
 			<h3>{result.title}</h3>
 		</div>

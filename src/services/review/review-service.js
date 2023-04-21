@@ -18,7 +18,9 @@ export const createReview = async (review) => {
 }
 
 export const findReviewByMovie = async(mid) => {
+console.log(mid);
     const response = await api.get(`${REVIEW_API}/movie/${mid}`);
+    console.log(response.data);
     return response.data;
 }
 

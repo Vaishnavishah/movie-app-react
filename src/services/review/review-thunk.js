@@ -5,6 +5,7 @@ import * as reviewService from "./review-service";
 export const createReviewThunk = createAsyncThunk(
   'review/createReview',
   async (review) => {
+  console.log("Create review thunk");
     const newReview = await reviewService.createReview(review)
     return newReview
 });
@@ -26,7 +27,7 @@ export const deleteReviewThunk = createAsyncThunk(
     return rid
 });
 
-export cont updateReviewThunk = createAsyncThunk(
+export const updateReviewThunk = createAsyncThunk(
 'review/updateReview',
 async (review) => {
     await reviewService.updateReview(review);

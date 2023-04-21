@@ -1,20 +1,27 @@
 import React, {useState} from "react";
 import {createReview} from "../../reducers/review-reducer";
 import {useDispatch} from "react-redux";
+import {useSelector} from "react-redux";
+import ReviewList from "./Review-list";
+import {createReviewThunk} from "../../services/review/review-thunk";
 
 
 function Popup({ selected, closePopup }) {
 let [writeReview, setWriteReview] = useState('');
   const dispatch = useDispatch();
+  const review_list = useSelector(state => state.reviews)
 const handleSubmit = () => {
     const newReview = {
+            userID: 2,
             review: writeReview,
             movieID: selected.imdbID
           }
-          dispatch(createReview(newReview));
+          dispatch(createReviewThunk(newReview));
           console.log(newReview);
 
 }
+
+
 	return (
 		<section className="popup">
 			<div className="content">
@@ -24,6 +31,7 @@ const handleSubmit = () => {
 					<img src={selected.Poster} />
 					<p>{selected.Plot}</p>
 					<p><b> Reviews </b></p>
+
 					<form>
 					    <textarea  name="review"
                                    id="write-review"
@@ -37,9 +45,10 @@ const handleSubmit = () => {
                 <button className = "submit" onClick = {handleSubmit}> Submit</button>
 
 				<button className="close" onClick={closePopup}>Close</button>
+				<ReviewList selected = {selected} />
 			</div>
 		</section>
 	)
 }
 
-export default Popup;
+export default Popup
