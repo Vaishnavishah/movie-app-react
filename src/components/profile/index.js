@@ -27,7 +27,9 @@ function Profile() {
         }
     };
     const func2 = async (uid) => {
+        console.log("uid" + uid);
         const payload = await getUser(uid);
+        console.log("payload profile " + payload);
         setProfile(payload);
     }
     useEffect(() => {
