@@ -54,20 +54,21 @@ function PopularMovies() {
             }
         }
 
-    const openPopup = id => {
+    const openPopup = (id) => {
+        console.log("id id", id);
             axios(omdbapiurl + "&i=" + id).then(({ data }) => {
                 let result = data;
-
                 setState(prevState => {
                     return { ...prevState, selected: result }
                 });
             });
         }
-        const closePopup = () => {
-                setState(prevState => {
-                    return { ...prevState, selected: {} }
-                });
-            }
+
+    const closePopup = () => {
+            setState(prevState => {
+                return { ...prevState, selected: {} }
+            });
+        }
 useEffect(() => {
    popular();
  }, [])

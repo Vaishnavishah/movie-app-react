@@ -12,20 +12,30 @@ const initialState = {
 
 const favouriteSlice = createSlice({
  name: 'favourite',
- initialState,
+ initialState: initialState,
+    reducers: {
+     resetFavourites(state, action) {
+         console.log('reset fav')
+         // return {
+         //     ...state,
+         //     favouriteArray: action.payload
+         // }
+         state.favouriteArray = [];
+         console.log("state here", state.favouriteArray);
+     }
+    },
  extraReducers: {
      [getFavouriteByUserThunk.pending]:
         (state) => {
-           console.log("here")
            state.loading = true
            state.favouriteArray = []
      },
      [getFavouriteByUserThunk.fulfilled]:
         (state, { payload }) => {
-            console.log("payload: " + {payload});
+            console.log("payload: " + payload);
            state.loading = false
            state.favouriteArray = payload
-           console.log(state.favourites)
+           console.log(state.favouriteArray)
      },
      [getFavouriteByUserThunk.rejected]:
         (state, action) => {
@@ -36,7 +46,7 @@ const favouriteSlice = createSlice({
            (state, { payload }) => {
            state.loading = false
            state.favouriteArray = state.favouriteArray
-             .filter(t => (t.userID !== payload.usedID && t.movieID !== payload.movieID) )
+             .filter(t => (t.userID !== payload.userID && t.movieID !== payload.movieID) )
          },
      [createFavouriteThunk.fulfilled]:
            (state, { payload }) => {
@@ -50,4 +60,5 @@ const favouriteSlice = createSlice({
 
 );
 
+export const {resetFavourites} = favouriteSlice.actions;
 export default favouriteSlice.reducer;
