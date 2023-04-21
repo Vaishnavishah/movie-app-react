@@ -3,6 +3,10 @@ import { useSelector, useDispatch } from "react-redux";
 import {useLocation, useNavigate} from "react-router";
 import { profileThunk, logoutThunk, updateUserThunk } from "../../services/auth-thunks.js";
 import {getUser} from "../../services/auth-service";
+import {findReviewByUserThunk}
+  from "../../services/review/review-thunk";
+
+import UserReview from "../review-in-profile";
 
 function Profile() {
 
@@ -24,6 +28,7 @@ function Profile() {
             return null;
         } else {
             await setProfile(payload);
+
         }
     };
     const func2 = async (uid) => {
@@ -43,6 +48,7 @@ function Profile() {
     }, []);
 
     return (
+    <>
         <div>
             <h1>Profile Screen</h1>
             {profile && (
@@ -140,6 +146,8 @@ function Profile() {
                 Update</button>
             <button onClick={save}>Save</button>
         </div>
+        {profile : <UserReview profile = {profile}/> : null}
+        </>
     );
 }
 

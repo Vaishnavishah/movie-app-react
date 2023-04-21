@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import reviewReducer from './reducers/review-reducer';
+import userReviewReducer from './components/review-in-profile/user-review-reducer';
 import {Routes, Route} from "react-router";
 import { configureStore } from '@reduxjs/toolkit';
 import {Provider} from "react-redux";
@@ -22,7 +23,7 @@ import MovieDetail from "./components/moviedetail";
 import PopularMovies from "./components/popular-movies";
 
 const store = configureStore({
- reducer: {reviews: reviewReducer, user: authReducer, favourite: favouriteReducer}});
+ reducer: {reviews: reviewReducer, user: authReducer, favourite: favouriteReducer, userReviews: userReviewReducer}});
 
 
 function App() {
