@@ -15,9 +15,8 @@ export const getFavouriteByUserThunk = createAsyncThunk(
 );
 
 export const deleteFavouriteThunk = createAsyncThunk(
-  'favourite/deleteFavourite',
-  async (uid, mid) => {
-    await favouriteService.deleteFavourite(uid, mid)
-    return mid
+  'favourite/deleteFavourite', async (favourite) => {
+    await favouriteService.deleteFavourite(favourite.userID, favourite.movieID);
+    return favourite;
 });
 

@@ -4,17 +4,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { solid, regular, brands, icon } from '@fortawesome/fontawesome-svg-core/import.macro' // <-- import styles to be used
 import {createFavouriteThunk}
   from "../../services/favourite/favourite-thunk";
+import {profileThunk} from "../../services/auth-thunks";
 
 function Result({ result, openPopup }) {
 const dispatch = useDispatch();
-const handleHeartClick = () => {
+const handleHeartClick = async () => {
             if(result.imdbID) {
+                const { payload } = await dispatch(profileThunk());
+                console.log("payload id", payload);
                 const newFavourite = {
-                    userID: 1,
+                    userID: payload._id,
                     movieID: result.imdbID
-                  }
-                  dispatch(createFavouriteThunk(newFavourite));
-                  console.log("newFavourite");
+                }
+                await dispatch(createFavouriteThunk(newFavourite));
             }
         }
 	return (
