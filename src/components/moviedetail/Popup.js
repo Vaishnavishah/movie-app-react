@@ -1,10 +1,9 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {createReview} from "../../reducers/review-reducer";
 import {useDispatch} from "react-redux";
 import {useSelector} from "react-redux";
 import ReviewList from "./Review-list";
 import {createReviewThunk} from "../../services/review/review-thunk";
-import {profileThunk} from "../../services/auth-thunks";
 
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {solid} from "@fortawesome/fontawesome-svg-core/import.macro";
