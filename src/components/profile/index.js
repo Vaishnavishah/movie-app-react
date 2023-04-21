@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from "react";
+import Form from 'react-bootstrap/Form';
 import { useSelector, useDispatch } from "react-redux";
-import {useLocation, useNavigate} from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { profileThunk, logoutThunk, updateUserThunk } from "../../services/auth-thunks.js";
-import {getUser} from "../../services/auth-service";
+import { getUser } from "../../services/auth-service";
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faLocationDot, faCakeCandles, faCalendarDays } from '@fortawesome/free-solid-svg-icons'
+import EditProfile from "./edit-profile.js";
+
+library.add(faLocationDot, faCakeCandles, faCalendarDays);
 
 function Profile() {
 
@@ -10,11 +16,7 @@ function Profile() {
     const [profile, setProfile] = useState(currentUser);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const save = () => { dispatch(updateUserThunk(profile)); };
-    const {pathname} = useLocation();
-    // const openComponent = useCallback(() => {
-    //     navigate('/profile/edit');
-    // }, [])
+    const { pathname } = useLocation();
     const func = async () => {
         // run asynchronous tasks here
         const { payload } = await dispatch(profileThunk());
@@ -32,7 +34,7 @@ function Profile() {
     }
     useEffect(() => {
         const paths = pathname.split('/');
-        if(paths.length === 3) {
+        if (paths.length === 3) {
             const uid = paths[2];
             func2(uid);
         } else {
@@ -42,101 +44,76 @@ function Profile() {
 
     return (
         <div>
-            <h1>Profile Screen</h1>
             {profile && (
                 <div>
-                    <div>
-                        <label>First Name</label>
-                        <input type="text"
-                               value={profile.firstName}
-                               onChange={(event) => {
-                                   const newProfile = {
-                                       ...profile,
-                                       firstName: event.target.value,
-                                   };
-                                   setProfile(newProfile);
-                               }}
-                        />
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Full Name</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            {profile.firstName} {profile.lastName}
+                        </div>
                     </div>
-                    <div>
-                        <label>Last Name</label>
-                        <input type="text"
-                               value={profile.lastName}
-                               onChange={(event) => {
-                                   const newProfile = {
-                                       ...profile,
-                                       lastName: event.target.value,
-                                   };
-                                   setProfile(newProfile);
-                               }}
-                        />
+                    <hr />
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Email</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            {profile.email}
+                        </div>
                     </div>
-                    <div>
-                        <label>Date of Birth</label>
-                        <input type="text"
-                               value={profile.dob}
-                               onChange={(event) => {
-                                   const newProfile = {
-                                       ...profile,
-                                       dob: event.target.value,
-                                   };
-                                   setProfile(newProfile);
-                               }}
-                        />
+                    <hr />
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Date of Birth</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            {new Date(profile.dob).toDateString()}
+                        </div>
                     </div>
-                    <div>
-                        <label>Profile Photo</label>
-                        <input type="text"
-                               value={profile.profilePhoto}
-                               onChange={(event) => {
-                                   const newProfile = {
-                                       ...profile,
-                                       profilePhoto: event.target.value,
-                                   };
-                                   setProfile(newProfile);
-                               }}
-                        />
+                    <hr />
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Genre</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            {profile.genre}
+                        </div>
                     </div>
-                    <div>
-                        <label>Email</label>
-                        <input type="text"
-                               value={profile.email}
-                               onChange={(event) => {
-                                   const newProfile = {
-                                       ...profile,
-                                       email: event.target.value,
-                                   };
-                                   setProfile(newProfile);
-                               }}
-                        />
+                    <hr />
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Username</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            {profile.username}
+                        </div>
                     </div>
-                    <div>
-                        <label>Genres</label>
-                        <input type="text"
-                               value={profile.genre}
-                               onChange={(event) => {
-                                   const newProfile = {
-                                       ...profile,
-                                       genre: event.target.value,
-                                   };
-                                   setProfile(newProfile);
-                               }}
-                        />
+                    <hr />
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Password</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            *****
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <button class="btn btn-info" href="#" role="button" onClick={() => navigate("/profile/edit")}>Edit Profile</button>
+                        </div>
+                        <div class="col-sm-3">
+                            <button class="btn btn-info" href="#" role="button" onClick={() => {
+                                dispatch(logoutThunk()).then(() => {
+                                    navigate("/login")
+                                })
+                            }}>Logout</button>
+                        </div>
                     </div>
                 </div>
             )}
-            <button
-                onClick={() => {
-                    dispatch(logoutThunk());
-                    navigate("/login");
-                }}>
-                Logout</button>
-            <button
-                onClick={() => {
-                    dispatch(updateUserThunk(profile));
-                }}>
-                Update</button>
-            <button onClick={save}>Save</button>
         </div>
     );
 }
