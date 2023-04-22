@@ -10,7 +10,6 @@ function PopularMovies() {
     const [homeState, setHomeState] = useState({results:[]});
     const omdbapiurl = "http://www.omdbapi.com/?apikey=dfe6d885";
     const searchUrl = "http://localhost:4000/api/search";
-    const movieUrl = "http://localhost:4000/api/movie";
     const [state, setState] = useState({
                                     s: "",
                                     results: [],
@@ -34,7 +33,7 @@ function PopularMovies() {
                 return { ...prevState, s: s }
             });
 
-            s.length > 3 && axios(searchUrl, { params: {criteria: s}}).then(({ data }) => {
+            axios(searchUrl, { params: {criteria: s}}).then(({ data }) => {
                 let results = data.Search;
 
                 setState(prevState => {
