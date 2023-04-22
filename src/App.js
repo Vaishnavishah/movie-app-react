@@ -14,7 +14,7 @@ import Favourites from "./components/favourites";
 import authReducer from "./reducers/auth-reducer";
 import NavigationSidebar from "./components/navigation-sidebar";
 import Movies from "./components/movies";
-import Series from "./components/series";
+// import Series from "./components/series";
 import Profile from "./components/profile";
 import Login from "./components/login";
 import SignUp from "./components/signup";
@@ -42,7 +42,6 @@ function App() {
                 <div className="col-xl-10 col-lg-7 col-10 d-flex flex-column gap-1">
                   <Routes>
                     <Route path="/" element={<PopularMovies/>}/>
-                    <Route path="/series" element={<Series/>}/>
                     <Route path="/profile" element={<Profile/>}/>
                     <Route path="/profile/:uid" element={<Profile/>}/>
                     <Route path="/login" element={<Login/>}/>
