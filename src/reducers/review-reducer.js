@@ -36,7 +36,7 @@ const reviewSlice = createSlice({
             (state, { payload }) => {
             state.loading = false
             state.reviews = state.reviews
-              .filter(t => (t.userID !== payload.usedID && t.movieID !== payload.movieID) )
+              .filter(t => (t._id != payload) )
           },
       [createReviewThunk.fulfilled]:
             (state, { payload }) => {

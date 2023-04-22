@@ -15,9 +15,7 @@ const ReviewList = ({ selected }) => {
   }, [])
 
   const deleteReview = (id) => {
-    dispatch(deleteReviewThunk(id)).then(() => {
-      dispatch(findReviewByMovieThunk(selected.imdbID));
-    })
+    dispatch(deleteReviewThunk(id))
   }
 
   return (
