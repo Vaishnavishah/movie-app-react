@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {deleteFavouriteThunk, createFavouriteThunk, getFavouriteByUserThunk} from "../services/favourite/favourite-thunk";
+import {deleteFavouriteThunk, createFavouriteThunk, findFavouriteByUserThunk} from "../services/favourite/favourite-thunk";
 
 const currentUser = {
  "userID": 1,
@@ -25,19 +25,19 @@ const favouriteSlice = createSlice({
      }
     },
  extraReducers: {
-     [getFavouriteByUserThunk.pending]:
+     [findFavouriteByUserThunk.pending]:
         (state) => {
            state.loading = true
            state.favouriteArray = []
      },
-     [getFavouriteByUserThunk.fulfilled]:
+     [findFavouriteByUserThunk.fulfilled]:
         (state, { payload }) => {
             console.log("payload: " + payload);
            state.loading = false
            state.favouriteArray = payload
-           console.log(state.favouriteArray)
+           console.log("state.favouriteArray", state.favouriteArray)
      },
-     [getFavouriteByUserThunk.rejected]:
+     [findFavouriteByUserThunk.rejected]:
         (state, action) => {
            state.loading = false
            state.error = action.error

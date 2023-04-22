@@ -19,7 +19,7 @@ export const createFavourite = async (favourite) => {
     return response.data;
 }
 
-export const getFavouriteByUser = async(uid) => {
+export const findFavouriteByUser = async(uid) => {
     const response = await api.get(`${FAVOURITES_API}/${uid}`);
     console.log("response", response);
     return response.data;
