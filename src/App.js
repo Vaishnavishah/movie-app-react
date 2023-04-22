@@ -20,6 +20,7 @@ import Login from "./components/login";
 import SignUp from "./components/signup";
 import MovieDetail from "./components/moviedetail";
 import PopularMovies from "./components/popular-movies";
+import EditProfile from './components/profile/edit-profile';
 
 const store = configureStore({
  reducer: {reviews: reviewReducer, user: authReducer, favourite: favouriteReducer}});
@@ -48,6 +49,7 @@ function App() {
                     <Route path="/signup" element={<SignUp/>}/>
                     <Route path="/movies/movie" element={<MovieDetail/>}/>
                     <Route path="/favourites" element={<Favourites/>}/>
+                    <Route path="/profile/edit" element={<EditProfile />}/>
                   </Routes>
                 </div>
               </div>

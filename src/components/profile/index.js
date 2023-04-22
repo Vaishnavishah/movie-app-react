@@ -1,8 +1,16 @@
 import React, { useState, useEffect } from "react";
+import Form from 'react-bootstrap/Form';
 import { useSelector, useDispatch } from "react-redux";
-import {useLocation, useNavigate} from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { profileThunk, logoutThunk, updateUserThunk } from "../../services/auth-thunks.js";
-import {getUser} from "../../services/auth-service";
+import { getUser } from "../../services/auth-service";
+import { library } from '@fortawesome/fontawesome-svg-core'
+import EditProfile from "./edit-profile.js";
+import { faLocationDot, faCakeCandles, faCalendarDays } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Link } from 'react-router-dom';
+
+library.add(faLocationDot, faCakeCandles, faCalendarDays);
 
 function Profile() {
 
@@ -10,11 +18,7 @@ function Profile() {
     const [profile, setProfile] = useState(currentUser);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const save = () => { dispatch(updateUserThunk(profile)); };
-    const {pathname} = useLocation();
-    // const openComponent = useCallback(() => {
-    //     navigate('/profile/edit');
-    // }, [])
+    const { pathname } = useLocation();
     const func = async () => {
         // run asynchronous tasks here
         const { payload } = await dispatch(profileThunk());
@@ -34,7 +38,7 @@ function Profile() {
     }
     useEffect(() => {
         const paths = pathname.split('/');
-        if(paths.length === 3) {
+        if (paths.length === 3) {
             const uid = paths[2];
             func2(uid);
         } else {
@@ -42,103 +46,36 @@ function Profile() {
         }
     }, []);
 
+    const styles = {
+        imgContainer: { position: "relative", textAlign: "center", color: "white", marginBottom: "10px" },
+        mainContentImg: { display: "flex", width: "100%", height: "256px" },
+        bottomLeftImg: { position: "absolute", bottom: "-15%", left: "16px", color: "white", width: "128px", height: "128px", borderRadius: "50%" },
+        buttonContainer: { width: "100%", marginBottom: "20px" },
+        buttonStyle: { backgroundColor: "white", color: "black", borderColor: "grey" }
+    }
+
     return (
         <div>
-            <h1>Profile Screen</h1>
             {profile && (
                 <div>
-                    <div>
-                        <label>First Name</label>
-                        <input type="text"
-                               value={profile.firstName}
-                               onChange={(event) => {
-                                   const newProfile = {
-                                       ...profile,
-                                       firstName: event.target.value,
-                                   };
-                                   setProfile(newProfile);
-                               }}
-                        />
+                    <div style={styles.imgContainer}>
+                        <img src="https://payload.cargocollective.com/1/11/367710/13568488/MOVIECLASSICSerikweb_2500_2500.jpg" style={styles.mainContentImg} />
+                        <div><img src={profile.profilePhoto} style={styles.bottomLeftImg}></img></div>
                     </div>
-                    <div>
-                        <label>Last Name</label>
-                        <input type="text"
-                               value={profile.lastName}
-                               onChange={(event) => {
-                                   const newProfile = {
-                                       ...profile,
-                                       lastName: event.target.value,
-                                   };
-                                   setProfile(newProfile);
-                               }}
-                        />
+                    <div className="d-flex flex-row-reverse" style={styles.buttonContainer}>
+                        <Link to="/profile/edit">
+                            <a class="btn btn-primary rounded-pill" href="#" role="button" style={styles.buttonStyle}><b>Edit Profile</b></a>
+                        </Link>
                     </div>
-                    <div>
-                        <label>Date of Birth</label>
-                        <input type="text"
-                               value={profile.dob}
-                               onChange={(event) => {
-                                   const newProfile = {
-                                       ...profile,
-                                       dob: event.target.value,
-                                   };
-                                   setProfile(newProfile);
-                               }}
-                        />
-                    </div>
-                    <div>
-                        <label>Profile Photo</label>
-                        <input type="text"
-                               value={profile.profilePhoto}
-                               onChange={(event) => {
-                                   const newProfile = {
-                                       ...profile,
-                                       profilePhoto: event.target.value,
-                                   };
-                                   setProfile(newProfile);
-                               }}
-                        />
-                    </div>
-                    <div>
-                        <label>Email</label>
-                        <input type="text"
-                               value={profile.email}
-                               onChange={(event) => {
-                                   const newProfile = {
-                                       ...profile,
-                                       email: event.target.value,
-                                   };
-                                   setProfile(newProfile);
-                               }}
-                        />
-                    </div>
-                    <div>
-                        <label>Genres</label>
-                        <input type="text"
-                               value={profile.genre}
-                               onChange={(event) => {
-                                   const newProfile = {
-                                       ...profile,
-                                       genre: event.target.value,
-                                   };
-                                   setProfile(newProfile);
-                               }}
-                        />
+                    <h4 className='m-0'><b>{profile.firstName} {profile.lastName}</b></h4>
+                    <p>@{profile.username}</p>
+                    <div className="d-flex justify-content-between align-items-center text-muted" style={{ width: '80%' }}>
+                        <div><FontAwesomeIcon icon="fa-solid fa-location-dot" /> {profile.genre}</div>
+                        <div><FontAwesomeIcon icon="fa-solid fa-cake-candles" /> {new Date(profile.dob).toDateString()}</div>
+                        <div><FontAwesomeIcon icon="fa-solid fa-calendar-days" /> {profile.email}</div>
                     </div>
                 </div>
             )}
-            <button
-                onClick={() => {
-                    dispatch(logoutThunk());
-                    navigate("/login");
-                }}>
-                Logout</button>
-            <button
-                onClick={() => {
-                    dispatch(updateUserThunk(profile));
-                }}>
-                Update</button>
-            <button onClick={save}>Save</button>
         </div>
     );
 }
