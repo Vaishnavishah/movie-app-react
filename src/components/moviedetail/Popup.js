@@ -15,77 +15,77 @@ import {
 } from "../../services/favourite/favourite-service";
 
 function Popup({ selected, closePopup }) {
-let [writeReview, setWriteReview] = useState('');
-  const dispatch = useDispatch();
-  const review_list = useSelector(state => state.reviews)
-  const {currentUser} = useSelector(state => state.user)
-const [response, setResponse] = useState('');
-const [profile, setProfile] = useState('');
-const [flag, setFlag] = useState(false);
+	let [writeReview, setWriteReview] = useState('');
+	const dispatch = useDispatch();
+	const review_list = useSelector(state => state.reviews)
+	const {currentUser} = useSelector(state => state.user)
+	const [response, setResponse] = useState('');
+	const [profile, setProfile] = useState('');
+	const [flag, setFlag] = useState(false);
 
-useEffect(() => {
-   dispatch(profileThunk())
- }, [])
+	useEffect(() => {
+		dispatch(profileThunk())
+	}, [])
 
 
 
-const handleSubmit = () => {
-console.log("currentUser" + currentUser);
-if(currentUser) {
-    const newReview = {
-            userID: currentUser._id,
-            review: writeReview,
-            movieID: selected.imdbID
-          }
-          dispatch(createReviewThunk(newReview));
-          console.log(newReview);
-          } else {
-            alert("Please login or sign up to write reviews for this movie!!");
-          }
- }
+	const handleSubmit = () => {
+		console.log("currentUser" + currentUser);
+		if(currentUser) {
+			const newReview = {
+				userID: currentUser._id,
+				review: writeReview,
+				movieID: selected.imdbID
+			}
+			dispatch(createReviewThunk(newReview));
+			console.log(newReview);
+		} else {
+			alert("Please login or sign up to write reviews for this movie!!");
+		}
+	}
 
-	  useEffect(() => {
-		  async function fetchData() {
-			  const { payload } = await dispatch(profileThunk());
-			  console.log("user payload", payload);
-			  if(payload !== undefined) {
-				  await setProfile(payload);
-				  const data = await getFavouriteByUserandMovie(payload._id, selected.imdbID);
-				  console.log("get user and movie", data);
-				  if(data.length > 0) {
-					  setResponse(data);
-				  } else {
-					  setResponse([]);
-				  }
-				  console.log("ressss", response);
-			  }
-		  }
-		  fetchData();
-	  }, [flag]);
+	useEffect(() => {
+		async function fetchData() {
+			const { payload } = await dispatch(profileThunk());
+			console.log("user payload", payload);
+			if(payload !== undefined) {
+				await setProfile(payload);
+				const data = await getFavouriteByUserandMovie(payload._id, selected.imdbID);
+				console.log("get user and movie", data);
+				if(data.length > 0) {
+					setResponse(data);
+				} else {
+					setResponse([]);
+				}
+				console.log("ressss", response);
+			}
+		}
+		fetchData();
+	}, [flag]);
 
-  const handleHeartClick = async () => {
-	  if (profile.length <= 0) {
-		  alert("Please log in first!");
-	  } else {
-		  const newFavourite = {
-			  userID: profile._id,
-			  movieID: selected.imdbID
-		  }
-		  if(response.length > 0) {
-			  await dispatch(deleteFavouriteThunk(newFavourite));
-			  await setResponse('');
-			  await setFlag(false);
-		  } else {
-			  const newFavourite = {
-				  userID: profile._id,
-				  movieID: selected.imdbID
-			  }
-			  await dispatch(createFavouriteThunk(newFavourite));
-			  console.log(newFavourite);
-			  await setFlag(true);
-		  }
-	  }
-  }
+	const handleHeartClick = async () => {
+		if (profile.length <= 0) {
+			alert("Please log in first!");
+		} else {
+			const newFavourite = {
+				userID: profile._id,
+				movieID: selected.imdbID
+			}
+			if(response.length > 0) {
+				await dispatch(deleteFavouriteThunk(newFavourite));
+				await setResponse('');
+				await setFlag(false);
+			} else {
+				const newFavourite = {
+					userID: profile._id,
+					movieID: selected.imdbID
+				}
+				await dispatch(createFavouriteThunk(newFavourite));
+				console.log(newFavourite);
+				await setFlag(true);
+			}
+		}
+	}
 
 
 	return (
@@ -106,15 +106,15 @@ if(currentUser) {
 
 					<form>
 					    <textarea  name="review"
-                                   id="write-review"
-                                   cols="20"
-                                   placeholder="Write a review?"
-                                   rows="3"
-                                   onChange={(event) => setWriteReview(event.target.value)}>
+								   id="write-review"
+								   cols="20"
+								   placeholder="Write a review?"
+								   rows="3"
+								   onChange={(event) => setWriteReview(event.target.value)}>
                         </textarea>
 					</form>
 				</div>
-                <button className = "submit" onClick = {handleSubmit}> Submit</button>
+				<button className = "submit" onClick = {handleSubmit}> Submit</button>
 
 				<button className="close" onClick={closePopup}>Close</button>
 				<br/>
