@@ -5,11 +5,13 @@ import Results from "./Results";
 import SearchResults from "../movies/Results";
 import Search from "./Search";
 
+const SERVER_API_URL = process.env.REACT_APP_SERVER_API_URL;
+const SEARCH_URL = `${SERVER_API_URL}/search`;
+
 function PopularMovies() {
 
     const [homeState, setHomeState] = useState({results:[]});
     const omdbapiurl = "http://www.omdbapi.com/?apikey=dfe6d885";
-    const searchUrl = "http://localhost:4000/api/search";
     const [state, setState] = useState({
                                     s: "",
                                     results: [],
@@ -17,7 +19,7 @@ function PopularMovies() {
                                 });
 
     const popular = () => {
-        axios(searchUrl).then(({ data }) => {
+        axios(SEARCH_URL).then(({ data }) => {
 
                     let results = data.results;
                     setHomeState(prevState => {
@@ -33,7 +35,7 @@ function PopularMovies() {
                 return { ...prevState, s: s }
             });
 
-            axios(searchUrl, { params: {criteria: s}}).then(({ data }) => {
+            axios(SEARCH_URL, { params: {criteria: s}}).then(({ data }) => {
                 let results = data.Search;
 
                 setState(prevState => {
