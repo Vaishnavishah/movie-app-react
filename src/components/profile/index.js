@@ -5,12 +5,11 @@ import { useLocation, useNavigate } from "react-router";
 import { profileThunk, logoutThunk, updateUserThunk } from "../../services/auth-thunks.js";
 import { getUser } from "../../services/auth-service";
 import { library } from '@fortawesome/fontawesome-svg-core'
-import EditProfile from "./edit-profile.js";
-import { faLocationDot, faCakeCandles, faCalendarDays } from '@fortawesome/free-solid-svg-icons'
+import { faCakeCandles, faMasksTheater, faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link } from 'react-router-dom';
 
-library.add(faLocationDot, faCakeCandles, faCalendarDays);
+library.add(faCakeCandles, faMasksTheater, faEnvelope);
 
 function Profile() {
 
@@ -70,9 +69,9 @@ function Profile() {
                     <h4 className='m-0'><b>{profile.firstName} {profile.lastName}</b></h4>
                     <p>@{profile.username}</p>
                     <div className="d-flex justify-content-between align-items-center text-muted" style={{ width: '80%' }}>
-                        <div><FontAwesomeIcon icon="fa-solid fa-location-dot" /> {profile.genre}</div>
+                        <div><FontAwesomeIcon icon="fa-solid fa-masks-theater" /> {profile.genre}</div>
                         <div><FontAwesomeIcon icon="fa-solid fa-cake-candles" /> {new Date(profile.dob).toDateString()}</div>
-                        <div><FontAwesomeIcon icon="fa-solid fa-calendar-days" /> {profile.email}</div>
+                        <div><FontAwesomeIcon icon="fa-solid fa-envelope" /> {profile.email}</div>
                     </div>
                 </div>
             )}

@@ -46,14 +46,6 @@ function EditProfile() {
         })
     }, [])
 
-    const styles = {
-        imgContainer: { position: "relative", textAlign: "center", color: "white", marginBottom: "10px" },
-        mainContentImg: { display: "flex", width: "100%", height: "256px" },
-        bottomLeftImg: { position: "absolute", bottom: "-15%", left: "16px", color: "white", width: "128px", height: "128px", borderRadius: "50%" },
-        buttonContainer: { width: "100%", marginBottom: "20px" },
-        buttonStyle: { backgroundColor: "white", color: "black", borderColor: "grey" }
-    }
-
     return (
         <div>
             <div class="row">

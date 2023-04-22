@@ -96,35 +96,98 @@ const Signup = () => {
        }
        return (
               <div>
-                     <h1>Signup</h1>
-                     <input className="mb-2 form-control" type="text" value={username}
-                            onChange={(event) => setUsername(event.target.value)}
-                            placeholder="username" />
-                     <input className="mb-2 form-control" type="text" value={firstName}
-                            onChange={(event) => setfirstName(event.target.value)}
-                            placeholder="First Name" />
-                     <input className="mb-2 form-control" type="text" value={lastName}
-                            onChange={(event) => setlastName(event.target.value)}
-                            placeholder="Last Name" />
-                     <input className="mb-2 form-control" type="date" value={dob}
-                            onChange={(event) => setDob(event.target.value)}
-                            placeholder="Date" />
-                     <div className="input-group mb-3">
-                            <div className="input-group-prepend">
-                                   <button class="btn btn-outline-secondary" type="button" onClick={() => setImageSelector(!imageSelector)}>Choose Profile Image</button>
+                     <div class="row">
+                            <div class="col-sm-3">
+                                   <h6 class="mb-0">Username</h6>
                             </div>
-                            <input type="text" className="form-control" placeholder="" aria-label="" value={profilePhoto} aria-describedby="basic-addon1" />
+                            <div class="col-sm-9 text-secondary">
+                                   <input className="mb-2 form-control" type="text" value={username}
+                                          onChange={(event) => setUsername(event.target.value)}
+                                          placeholder="Username" />
+                            </div>
                      </div>
-                     {imageSelector && <Gallery images={images} onSelect={handleSelect} />}
-                     <input className="mb-2 form-control" type="password" value={password}
-                            onChange={(event) => setPassword(event.target.value)}
-                            placeholder="Password" />
-                     <input className="mb-2 form-control" type="text" value={email}
-                            onChange={(event) => setEmail(event.target.value)}
-                            placeholder="Email" />
-                     <input className="mb-2 form-control" type="text" value={genre}
-                            onChange={(event) => setGenre(event.target.value)}
-                            placeholder="Genres" />
+                     <hr />
+                     <div class="row">
+                            <div class="col-sm-3">
+                                   <h6 class="mb-0">First Name</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                   <input className="mb-2 form-control" type="text" value={firstName}
+                                          onChange={(event) => setfirstName(event.target.value)}
+                                          placeholder="First Name" />
+                            </div>
+                     </div>
+                     <hr />
+                     <div class="row">
+                            <div class="col-sm-3">
+                                   <h6 class="mb-0">Last Name</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                   <input className="mb-2 form-control" type="text" value={lastName}
+                                          onChange={(event) => setlastName(event.target.value)}
+                                          placeholder="Last Name" />
+                            </div>
+                     </div>
+                     <hr />
+                     <div class="row">
+                            <div class="col-sm-3">
+                                   <h6 class="mb-0">Birth Date</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                   <input className="mb-2 form-control" type="date" value={dob}
+                                          onChange={(event) => setDob(event.target.value)}
+                                          placeholder="Date" />
+                            </div>
+                     </div>
+                     <hr />
+                     <div class="row">
+                            <div class="col-sm-3">
+                                   <h6 class="mb-0">Profile Image</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                   <div className="input-group mb-3">
+                                          <div className="input-group-prepend">
+                                                 <button class="btn btn-outline-secondary" type="button" onClick={() => setImageSelector(!imageSelector)}>Choose Profile Image</button>
+                                          </div>
+                                          <input type="text" className="form-control" placeholder="" aria-label="" value={profilePhoto} aria-describedby="basic-addon1" />
+                                   </div>
+                                   {imageSelector && <Gallery images={images} onSelect={handleSelect} />}
+                            </div>
+                     </div>
+                     <hr />
+                     <div class="row">
+                            <div class="col-sm-3">
+                                   <h6 class="mb-0">Password</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                   <input className="mb-2 form-control" type="password" value={password}
+                                          onChange={(event) => setPassword(event.target.value)}
+                                          placeholder="Password" />
+                            </div>
+                     </div>
+                     <hr />
+                     <div class="row">
+                            <div class="col-sm-3">
+                                   <h6 class="mb-0">Email</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                   <input className="mb-2 form-control" type="text" value={email}
+                                          onChange={(event) => setEmail(event.target.value)}
+                                          placeholder="Email" />
+                            </div>
+                     </div>
+                     <hr />
+                     <div class="row">
+                            <div class="col-sm-3">
+                                   <h6 class="mb-0">Genres</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                   <input className="mb-2 form-control" type="text" value={genre}
+                                          onChange={(event) => setGenre(event.target.value)}
+                                          placeholder="Genres" />
+                            </div>
+                     </div>
+                     <hr />
                      <button onClick={signup}
                             className="btn btn-primary mb-5">Signup
                      </button>
