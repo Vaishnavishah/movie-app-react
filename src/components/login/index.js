@@ -30,7 +30,7 @@ const Login = () => {
                    type="password" value={password}
                    onChange={(event) => setPassword(event.target.value)}
                    placeholder="password"/>
-            <button onClick={login}
+            <button onClick={() => login()}
                     className="btn btn-primary mb-5">Login
             </button>
         </div>
