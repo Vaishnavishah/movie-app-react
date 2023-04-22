@@ -7,10 +7,15 @@ const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [loggedIn, setLogin] = useState(false);
+    const [error, setError] = useState("");
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const login = async () => {
+        if (!username || !password) {
+            setError("Please fill in all required fields.");
+            return;
+        }
         try {
             await dispatch(loginThunk({ username, password }));
             await setLogin(true);
@@ -30,8 +35,9 @@ const Login = () => {
                    type="password" value={password}
                    onChange={(event) => setPassword(event.target.value)}
                    placeholder="password"/>
-            <button onClick={login}
-                    className="btn btn-primary mb-5">Login
+            {error && <p className="text-danger">{error}</p>}
+            <button onClick={login} className="btn btn-primary mb-5">
+                Login
             </button>
         </div>
     );

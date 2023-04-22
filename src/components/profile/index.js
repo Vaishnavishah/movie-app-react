@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {useLocation, useNavigate} from "react-router";
-import { profileThunk, logoutThunk, updateUserThunk } from "../../services/auth-thunks.js";
+import {
+    profileThunk,
+    logoutThunk,
+    updateUserThunk,
+    loginThunk
+} from "../../services/auth-thunks.js";
 import {getUser} from "../../services/auth-service";
 
 function Profile() {
@@ -10,11 +15,26 @@ function Profile() {
     const [profile, setProfile] = useState(currentUser);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [error, setError] = useState("");
     const save = () => { dispatch(updateUserThunk(profile)); };
     const {pathname} = useLocation();
     // const openComponent = useCallback(() => {
     //     navigate('/profile/edit');
     // }, [])
+
+    const updateProfile = async() => {
+        if (!profile.firstName || !profile.lastName || !profile.dob || !profile.email) {
+            setError("Please fill in all required fields.");
+            return;
+        }
+        try {
+            await dispatch(updateUserThunk(profile));
+            await alert("Updated Successfully!!");
+        } catch (e) {
+            alert(e);
+        }
+    }
+
     const func = async () => {
         // run asynchronous tasks here
         const { payload } = await dispatch(profileThunk());
@@ -125,6 +145,7 @@ function Profile() {
                     </div>
                 </div>
             )}
+            {error && <p className="text-danger">{error}</p>}
             <button
                 onClick={() => {
                     dispatch(logoutThunk());
@@ -132,9 +153,7 @@ function Profile() {
                 }}>
                 Logout</button>
             <button
-                onClick={() => {
-                    dispatch(updateUserThunk(profile));
-                }}>
+                onClick={updateProfile}>
                 Update</button>
             <button onClick={save}>Save</button>
         </div>

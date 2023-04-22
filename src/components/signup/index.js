@@ -12,6 +12,7 @@ const Signup = () => {
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
     const [genre, setGenre] = useState("");
+    const [error, setError] = useState("");
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -26,6 +27,10 @@ const Signup = () => {
     };
 
     const signup = async () => {
+        if(!user.username || !user.firstName || !user.lastName || !user.password || !user.email) {
+            setError("Please fill in all required fields.");
+            return;
+        }
         try {
             await dispatch(registerThunk(user));
             await navigate("/profile");
@@ -60,6 +65,7 @@ const Signup = () => {
             <input className="mb-2 form-control" type="text" value={genre}
                    onChange={(event) => setGenre(event.target.value)}
                    placeholder="Genres"/>
+            {error && <p className="text-danger">{error}</p>}
             <button onClick={signup}
                     className="btn btn-primary mb-5">Signup
             </button>
