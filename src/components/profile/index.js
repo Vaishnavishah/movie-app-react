@@ -62,8 +62,8 @@ function Profile() {
             {profile && (
                 <div>
                     <div style={styles.imgContainer}>
-                        <img src="https://payload.cargocollective.com/1/11/367710/13568488/MOVIECLASSICSerikweb_2500_2500.jpg" style={styles.mainContentImg} />
-                        <div><img src={profile.profilePhoto} style={styles.bottomLeftImg}></img></div>
+                        <img src="images/download1.png" style={styles.mainContentImg} />
+                        {profile.photo ? <div><img src={profile.profilePhoto} style={styles.bottomLeftImg}></img></div> : <div><img src="images/user.png" style={styles.bottomLeftImg}></img></div> }
                     </div>
                     <div className="d-flex flex-row-reverse" style={styles.buttonContainer}>
                         <Link to="/profile/edit">
@@ -73,8 +73,8 @@ function Profile() {
                     <h4 className='m-0'><b>{profile.firstName} {profile.lastName}</b></h4>
                     <p>@{profile.username}</p>
                     <div className="d-flex justify-content-between align-items-center text-muted" style={{ width: '80%' }}>
-                        <div><FontAwesomeIcon icon="fa-solid fa-location-dot" /> {profile.genre}</div>
-                        <div><FontAwesomeIcon icon="fa-solid fa-cake-candles" /> {new Date(profile.dob).toDateString()}</div>
+                        {profile.genre ? <div><FontAwesomeIcon icon="fa-solid fa-location-dot" /> {profile.genre}</div> : null}
+                        {profile.dob ? <div><FontAwesomeIcon icon="fa-solid fa-cake-candles" /> {new Date(profile.dob).toDateString()}</div>: null}
                         <div><FontAwesomeIcon icon="fa-solid fa-calendar-days" /> {profile.email}</div>
                     </div>
                 </div>
