@@ -42,22 +42,6 @@ function PopularMovies() {
                     return { ...prevState, results: results }
                 })
             });
-
-            if(s.length > 3) {
-                axios(searchUrl, { params: {criteria: s}}).then(({ data }) => {
-                    let results = data.Search;
-
-                    setState(prevState => {
-                        return { ...prevState, results: results }
-                    })
-                });
-            } else {
-                setState({
-                             s: "",
-                             results: [],
-                             selected: {}
-                         });
-            }
         }
 
 
