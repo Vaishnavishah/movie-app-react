@@ -15,6 +15,7 @@ const Signup = () => {
     const [email, setEmail] = useState("");
     const [genre, setGenre] = useState("");
     const [error, setError] = useState("");
+    const [imageSelector, setImageSelector] = useState("");
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -104,13 +105,13 @@ const Signup = () => {
                      <h1>Signup</h1>
                      <input className="mb-2 form-control" type="text" value={username}
                             onChange={(event) => setUsername(event.target.value)}
-                            placeholder="username" />
+                            placeholder="username*" />
                      <input className="mb-2 form-control" type="text" value={firstName}
                             onChange={(event) => setfirstName(event.target.value)}
-                            placeholder="First Name" />
+                            placeholder="First Name*" />
                      <input className="mb-2 form-control" type="text" value={lastName}
                             onChange={(event) => setlastName(event.target.value)}
-                            placeholder="Last Name" />
+                            placeholder="Last Name*" />
                      <input className="mb-2 form-control" type="date" value={dob}
                             onChange={(event) => setDob(event.target.value)}
                             placeholder="Date" />
@@ -123,10 +124,10 @@ const Signup = () => {
                      {imageSelector && <Gallery images={images} onSelect={handleSelect} />}
                      <input className="mb-2 form-control" type="password" value={password}
                             onChange={(event) => setPassword(event.target.value)}
-                            placeholder="Password" />
+                            placeholder="Password*" />
                      <input className="mb-2 form-control" type="text" value={email}
                             onChange={(event) => setEmail(event.target.value)}
-                            placeholder="Email" />
+                            placeholder="Email*" />
                      <input className="mb-2 form-control" type="text" value={genre}
                             onChange={(event) => setGenre(event.target.value)}
                             placeholder="Genres" />
