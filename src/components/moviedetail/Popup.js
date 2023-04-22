@@ -47,17 +47,14 @@ if(currentUser) {
 	  useEffect(() => {
 		  async function fetchData() {
 			  const { payload } = await dispatch(profileThunk());
-			  console.log("user payload", payload);
 			  if(payload !== undefined) {
 				  await setProfile(payload);
 				  const data = await getFavouriteByUserandMovie(payload._id, selected.imdbID);
-				  console.log("get user and movie", data);
 				  if(data.length > 0) {
 					  setResponse(data);
 				  } else {
 					  setResponse([]);
 				  }
-				  console.log("ressss", response);
 			  }
 		  }
 		  fetchData();

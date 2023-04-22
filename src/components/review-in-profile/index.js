@@ -1,17 +1,17 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {useDispatch,useSelector} from "react-redux";
-import ReviewItem
-  from "./review-item";
-import {findReviewByUserThunk}
-  from "../../services/review/review-thunk";
+import ReviewItem from "./review-item";
+import {findReviewByUserThunk} from "../../services/review/review-thunk";
+import axios from "axios";
 
-const ReviewList = ({selected}) => {
+const ReviewList = ({profile}) => {
 
 const {reviews, loading} = useSelector(state => state.userReviews)
 const dispatch = useDispatch();
+const [movie, setMovie] = useState([]);
 
  useEffect(() => {
-   dispatch(findReviewByUserThunk(selected.imdbID))
+   dispatch(findReviewByUserThunk(profile._id));
  }, [])
 
    return(
@@ -28,8 +28,9 @@ const dispatch = useDispatch();
         {
           reviews.map(review =>
           (
-              review.movieID === selected.imdbID
-                ? (<li className = "list-group-item">
+              review.userID === profile._id
+                ? (
+                <li className = "list-group-item">
                     <ReviewItem
                       key={review._id}
                       review = {review}

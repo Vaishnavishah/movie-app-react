@@ -146,7 +146,7 @@ function Profile() {
                 Update</button>
             <button onClick={save}>Save</button>
         </div>
-        {profile : <UserReview profile = {profile}/> : null}
+        {profile ? <UserReview profile = {profile}/> : null}
         </>
     );
 }

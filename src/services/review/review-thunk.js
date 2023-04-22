@@ -23,6 +23,7 @@ export const findReviewByMovieThunk = createAsyncThunk(
 export const deleteReviewThunk = createAsyncThunk(
   'review/deleteReview',
   async (rid) => {
+  console.log(rid);
     await reviewService.deleteReview(rid)
     return rid
 });
