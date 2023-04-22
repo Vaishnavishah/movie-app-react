@@ -6,17 +6,17 @@ import { Gallery } from "react-grid-gallery";
 
 
 const Signup = () => {
-       const [username, setUsername] = useState("");
-       const [firstName, setfirstName] = useState("");
-       const [lastName, setlastName] = useState("");
-       const [dob, setDob] = useState("");
-       const [profilePhoto, setprofilePhoto] = useState("");
-       const [password, setPassword] = useState("");
-       const [email, setEmail] = useState("");
-       const [genre, setGenre] = useState("");
-       const [imageSelector, setImageSelector] = useState(false);
-       const navigate = useNavigate();
-       const dispatch = useDispatch();
+    const [username, setUsername] = useState("");
+    const [firstName, setfirstName] = useState("");
+    const [lastName, setlastName] = useState("");
+    const [dob, setDob] = useState("");
+    const [profilePhoto, setprofilePhoto] = useState("");
+    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("");
+    const [genre, setGenre] = useState("");
+    const [error, setError] = useState("");
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
        const images = [
               {
@@ -86,14 +86,19 @@ const Signup = () => {
               email: email
        };
 
-       const signup = async () => {
-              try {
-                     await dispatch(registerThunk(user));
-                     await navigate("/profile");
-              } catch (e) {
-                     alert(e);
-              }
-       }
+    const signup = async () => {
+        if(!user.username || !user.firstName || !user.lastName || !user.password || !user.email) {
+            setError("Please fill in all required fields.");
+            return;
+        }
+        try {
+            await dispatch(registerThunk(user));
+            await navigate("/profile");
+        } catch (e) {
+            alert(e);
+        }
+    }
+
        return (
               <div>
                      <h1>Signup</h1>
@@ -125,6 +130,7 @@ const Signup = () => {
                      <input className="mb-2 form-control" type="text" value={genre}
                             onChange={(event) => setGenre(event.target.value)}
                             placeholder="Genres" />
+                  {error && <p className="text-danger">{error}</p>}
                      <button onClick={signup}
                             className="btn btn-primary mb-5">Signup
                      </button>
