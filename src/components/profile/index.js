@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Form from 'react-bootstrap/Form';
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router";
 import { profileThunk, logoutThunk, updateUserThunk } from "../../services/auth-thunks.js";
