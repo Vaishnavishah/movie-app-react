@@ -29,7 +29,7 @@ function EditProfile() {
     };
 
     useEffect(() => {
-        dispatch(profileThunk()).then(({payload}) => {
+        dispatch(profileThunk()).then(({ payload }) => {
             if (payload === undefined) {
                 navigate("/login");
                 return null;
@@ -43,8 +43,16 @@ function EditProfile() {
                 setPassword(payload.password);
                 setUsername(payload.username);
             }
-        })         
+        })
     }, [])
+
+    const styles = {
+        imgContainer: { position: "relative", textAlign: "center", color: "white", marginBottom: "10px" },
+        mainContentImg: { display: "flex", width: "100%", height: "256px" },
+        bottomLeftImg: { position: "absolute", bottom: "-15%", left: "16px", color: "white", width: "128px", height: "128px", borderRadius: "50%" },
+        buttonContainer: { width: "100%", marginBottom: "20px" },
+        buttonStyle: { backgroundColor: "white", color: "black", borderColor: "grey" }
+    }
 
     return (
         <div>
@@ -108,10 +116,10 @@ function EditProfile() {
                     <h6 class="mb-0">Username</h6>
                 </div>
                 <div class="col-sm-9 text-secondary">
-                <input className="mb-2 form-control" type="text" value={username}
+                    <input className="mb-2 form-control" type="text" value={username}
                         onChange={(event) => setUsername(event.target.value)}
-                        placeholder={username} 
-                        disabled/>
+                        placeholder={username}
+                        disabled />
                 </div>
             </div>
             <hr />

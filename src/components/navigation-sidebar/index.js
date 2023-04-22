@@ -1,11 +1,15 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import {useLocation} from "react-router";
+import {useLocation, useNavigate} from "react-router";
 import 'bootstrap/dist/css/bootstrap.css';
+import { useDispatch } from "react-redux";
+import { logoutThunk } from "../../services/auth-thunks";
 
 const NavigationSidebar = () => {
 
     const {pathname} = useLocation();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const paths = pathname.split('/')
     const active = paths[2];
 
@@ -28,6 +32,13 @@ const NavigationSidebar = () => {
             {/*</Link>*/}
             <Link to="/signup" className={`list-group-item ${active === 'signup'?'active':''}`}>
                 SignUp
+            </Link>
+            <Link className={`list-group-item`} onClick={() => {
+                dispatch(logoutThunk()).then(() => {
+                    navigate('/login');
+                })
+            }}>
+                Logout
             </Link>
         </div>
     );

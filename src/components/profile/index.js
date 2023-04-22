@@ -5,8 +5,10 @@ import { useLocation, useNavigate } from "react-router";
 import { profileThunk, logoutThunk, updateUserThunk } from "../../services/auth-thunks.js";
 import { getUser } from "../../services/auth-service";
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faLocationDot, faCakeCandles, faCalendarDays } from '@fortawesome/free-solid-svg-icons'
 import EditProfile from "./edit-profile.js";
+import { faLocationDot, faCakeCandles, faCalendarDays } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Link } from 'react-router-dom';
 
 library.add(faLocationDot, faCakeCandles, faCalendarDays);
 
@@ -42,75 +44,33 @@ function Profile() {
         }
     }, []);
 
+    const styles = {
+        imgContainer: { position: "relative", textAlign: "center", color: "white", marginBottom: "10px" },
+        mainContentImg: { display: "flex", width: "100%", height: "256px" },
+        bottomLeftImg: { position: "absolute", bottom: "-15%", left: "16px", color: "white", width: "128px", height: "128px", borderRadius: "50%" },
+        buttonContainer: { width: "100%", marginBottom: "20px" },
+        buttonStyle: { backgroundColor: "white", color: "black", borderColor: "grey" }
+    }
+
     return (
         <div>
             {profile && (
                 <div>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <h6 class="mb-0">Full Name</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-                            {profile.firstName} {profile.lastName}
-                        </div>
+                    <div style={styles.imgContainer}>
+                        <img src="https://payload.cargocollective.com/1/11/367710/13568488/MOVIECLASSICSerikweb_2500_2500.jpg" style={styles.mainContentImg} />
+                        <div><img src={profile.profilePhoto} style={styles.bottomLeftImg}></img></div>
                     </div>
-                    <hr />
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <h6 class="mb-0">Email</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-                            {profile.email}
-                        </div>
+                    <div className="d-flex flex-row-reverse" style={styles.buttonContainer}>
+                        <Link to="/profile/edit">
+                            <a class="btn btn-primary rounded-pill" href="#" role="button" style={styles.buttonStyle}><b>Edit Profile</b></a>
+                        </Link>
                     </div>
-                    <hr />
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <h6 class="mb-0">Date of Birth</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-                            {new Date(profile.dob).toDateString()}
-                        </div>
-                    </div>
-                    <hr />
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <h6 class="mb-0">Genre</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-                            {profile.genre}
-                        </div>
-                    </div>
-                    <hr />
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <h6 class="mb-0">Username</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-                            {profile.username}
-                        </div>
-                    </div>
-                    <hr />
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <h6 class="mb-0">Password</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-                            *****
-                        </div>
-                    </div>
-                    <hr />
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <button class="btn btn-info" href="#" role="button" onClick={() => navigate("/profile/edit")}>Edit Profile</button>
-                        </div>
-                        <div class="col-sm-3">
-                            <button class="btn btn-info" href="#" role="button" onClick={() => {
-                                dispatch(logoutThunk()).then(() => {
-                                    navigate("/login")
-                                })
-                            }}>Logout</button>
-                        </div>
+                    <h4 className='m-0'><b>{profile.firstName} {profile.lastName}</b></h4>
+                    <p>@{profile.username}</p>
+                    <div className="d-flex justify-content-between align-items-center text-muted" style={{ width: '80%' }}>
+                        <div><FontAwesomeIcon icon="fa-solid fa-location-dot" /> {profile.genre}</div>
+                        <div><FontAwesomeIcon icon="fa-solid fa-cake-candles" /> {new Date(profile.dob).toDateString()}</div>
+                        <div><FontAwesomeIcon icon="fa-solid fa-calendar-days" /> {profile.email}</div>
                     </div>
                 </div>
             )}
