@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
-import Form from 'react-bootstrap/Form';
 import { useSelector, useDispatch } from "react-redux";
-import { useLocation, useNavigate } from "react-router";
-import { profileThunk, logoutThunk, updateUserThunk } from "../../services/auth-thunks.js";
-import { getUser } from "../../services/auth-service";
+import {useLocation, useNavigate} from "react-router";
+import { profileThunk } from "../../services/auth-thunks.js";
 import { library } from '@fortawesome/fontawesome-svg-core'
-import EditProfile from "./edit-profile.js";
 import { faLocationDot, faCakeCandles, faCalendarDays } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link } from 'react-router-dom';
+import {getUser} from "../../services/auth-service";
+
+import UserReview from "../review-in-profile";
 
 library.add(faLocationDot, faCakeCandles, faCalendarDays);
 
@@ -18,7 +18,8 @@ function Profile() {
     const [profile, setProfile] = useState(currentUser);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { pathname } = useLocation();
+    const {pathname} = useLocation();
+
     const func = async () => {
         // run asynchronous tasks here
         const { payload } = await dispatch(profileThunk());
@@ -27,7 +28,7 @@ function Profile() {
             navigate("/login");
             return null;
         } else {
-            await setProfile(payload);
+            setProfile(payload);
         }
     };
     const func2 = async (uid) => {
@@ -38,7 +39,7 @@ function Profile() {
     }
     useEffect(() => {
         const paths = pathname.split('/');
-        if (paths.length === 3) {
+        if(paths.length === 3) {
             const uid = paths[2];
             func2(uid);
         } else {
@@ -55,7 +56,9 @@ function Profile() {
     }
 
     return (
+    <>
         <div>
+            <h1>Profile Screen</h1>
             {profile && (
                 <div>
                     <div style={styles.imgContainer}>
@@ -77,6 +80,8 @@ function Profile() {
                 </div>
             )}
         </div>
+        {profile ? <UserReview profile = {profile}/> : null}
+        </>
     );
 }
 

@@ -9,10 +9,11 @@ export const createFavouriteThunk = createAsyncThunk(
     return newFavourite
 });
 
-export const getFavouriteByUserThunk = createAsyncThunk(
-  'favourite/getFavouriteByUser', async (uid) =>
-    await favouriteService.getFavouriteByUser(uid)
-);
+export const findFavouriteByUserThunk = createAsyncThunk(
+  'favourite/findFavouriteByUser', async (uid) => {
+    const res = await favouriteService.findFavouriteByUser(uid)
+   return res
+});
 
 export const deleteFavouriteThunk = createAsyncThunk(
   'favourite/deleteFavourite', async (favourite) => {
