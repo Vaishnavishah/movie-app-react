@@ -92,7 +92,7 @@ function Popup({ selected, closePopup }) {
 		<section className="popup">
 			<div className="content">
 				<h2>{ selected.Title } <span>({ selected.Year })</span></h2>
-				<p className="rating">Rating: {selected.imdbRating}</p>
+				{/*<p className="rating">Rating: {selected.imdbRating}</p>*/}
 				{response.length > 0 ? (<span>
 					<FontAwesomeIcon style={{padding: "2px;", color:"red"}} icon={solid('heart')}
 									 onClick={handleHeartClick}/> </span>) :  (<span>
