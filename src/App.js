@@ -13,6 +13,7 @@ import {BrowserRouter} from "react-router-dom";
 import favouriteReducer from "./reducers/favourite-reducer";
 import Favourites from "./components/favourites";
 import authReducer from "./reducers/auth-reducer";
+import ratingReducer from "./reducers/rating-reducer";
 import NavigationSidebar from "./components/navigation-sidebar";
 import Movies from "./components/movies";
 // import Series from "./components/series";
@@ -24,7 +25,7 @@ import PopularMovies from "./components/popular-movies";
 import EditProfile from './components/profile/edit-profile';
 
 const store = configureStore({
- reducer: {reviews: reviewReducer, user: authReducer, favourite: favouriteReducer, userReviews: userReviewReducer}});
+ reducer: {reviews: reviewReducer, user: authReducer, favourite: favouriteReducer, userReviews: userReviewReducer, rating: ratingReducer}});
 
 
 function App() {
