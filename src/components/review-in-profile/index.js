@@ -4,15 +4,15 @@ import ReviewItem from "./review-item";
 import {findReviewByUserThunk} from "../../services/review/review-thunk";
 import axios from "axios";
 
-const ReviewList = ({profile}) => {
-
+const ReviewList = ({profile, isCurrUser}) => {
+console.log("profile in revie in profile" , profile);
 const {reviews, loading} = useSelector(state => state.userReviews)
 const dispatch = useDispatch();
 const [movie, setMovie] = useState([]);
 
  useEffect(() => {
    dispatch(findReviewByUserThunk(profile._id));
- }, [])
+ }, [profile])
 
    return(
    <>

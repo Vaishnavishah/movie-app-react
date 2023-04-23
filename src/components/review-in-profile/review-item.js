@@ -18,6 +18,8 @@ function ReviewItem(
             }
  }
 ) {
+
+const { currentUser } = useSelector((state) => state.user);
 const [movie, setMovie] = useState('');
 let [writeReview, setWriteReview] = useState(review.review);
 const omdbapiurl = "http://www.omdbapi.com/?apikey=dfe6d885";
@@ -60,6 +62,7 @@ useEffect(() => {
         <span className="fw-bold">
                {movie.Title}
         </span>
+        {currentUser._id === review.userID ?
         <span>
             <form>
             	<textarea  name="review"
@@ -71,9 +74,13 @@ useEffect(() => {
                        onChange={(event) => setWriteReview(event.target.value)}>
                 </textarea>
             </form>
+        </span> :
+        <span>
+            <p><b>Review : {review.review}</b></p>
         </span>
-        <button className = "btn btn-secondary" onClick = {handleUpdateClick} > Update</button>
-        <button className="btn btn-danger" onClick = {handleDeleteClick} >Delete</button>
+        }
+        {currentUser._id === review.userID ? <button className = "btn btn-secondary" onClick = {handleUpdateClick} > Update</button>: null }
+        {currentUser._id === review.userID ? <button className="btn btn-danger" onClick = {handleDeleteClick} >Delete</button> : null}
   </div>
 </>
 
