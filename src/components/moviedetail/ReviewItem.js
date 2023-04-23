@@ -49,7 +49,7 @@ const ReviewItem = (
             &nbsp; {review.review}
           </span>
         </div>
-        { currentUser && currentUser.isAdmin && <a href="#" onClick={() => deleteReview(review._id)}>X</a> }
+        { currentUser && currentUser.isAdmin && <a href="#" style={{textDecoration: "none"}} onClick={() => deleteReview(review._id)}>X</a> }
       </div>
     </>
 
