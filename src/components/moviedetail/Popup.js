@@ -26,11 +26,15 @@ function Popup({ selected, closePopup }) {
 	const [flag, setFlag] = useState(false);
 	const [rating, setRating] = useState();
 	const [avgRating, setAvgRating] = useState(0);
+	const [iscritic, setIsCritic] = useState(false);
 
 	useEffect(() => {
 
 		async function func() {
 			await dispatch(profileThunk());
+			if(currentUser) {
+				setIsCritic(currentUser.isCritic);
+			}
 			await findRatingByUserandMovie(currentUser._id, selected.imdbID).then(data => {
 				console.log("rating data", data);
 				let response = data;
@@ -138,14 +142,39 @@ function Popup({ selected, closePopup }) {
 									 onClick={handleHeartClick}/> </span>)}
 				</h2>
 				<p className="rating">IMDB Ratings: {selected.imdbRating}</p>
-				<p className="rating">User Ratings: {avgRating}</p>
-				<div className="rating">
-					<i> {rating >= 1 ? (<FontAwesomeIcon id="rating_star1" style={{color:"yellow"}}  icon={solid('star')} onClick={() => handleStarClick(1)}/>) : (<FontAwesomeIcon id="rating_star1" style={{color:"white"}}  icon={solid('star')} onClick={() => handleStarClick(1)}/>) } </i>
-					<i> {rating >= 2 ? (<FontAwesomeIcon id="rating_star2" style={{color:"yellow"}}  icon={solid('star')} onClick={() => handleStarClick(2)}/>) : (<FontAwesomeIcon id="rating_star2" style={{color:"white"}}  icon={solid('star')} onClick={() => handleStarClick(2)}/>) } </i>
-					<i> {rating >= 3 ? (<FontAwesomeIcon id="rating_star3" style={{color:"yellow"}}  icon={solid('star')} onClick={() => handleStarClick(3)}/>) : (<FontAwesomeIcon id="rating_star3" style={{color:"white"}}  icon={solid('star')} onClick={() => handleStarClick(3)}/>) } </i>
-					<i> {rating >= 4 ? (<FontAwesomeIcon id="rating_star4" style={{color:"yellow"}}  icon={solid('star')} onClick={() => handleStarClick(4)}/>) : (<FontAwesomeIcon id="rating_star4" style={{color:"white"}}  icon={solid('star')} onClick={() => handleStarClick(4)}/>) } </i>
-					<i> {rating >= 5 ? (<FontAwesomeIcon id="rating_star5" style={{color:"yellow"}}  icon={solid('star')} onClick={() => handleStarClick(5)}/>) : (<FontAwesomeIcon id="rating_star5" style={{color:"white"}}  icon={solid('star')} onClick={() => handleStarClick(5)}/>) } </i>
-				</div>
+				<p className="rating">Critics Ratings: {avgRating}</p>
+				{ iscritic ? (<div className="rating">
+					<i> {rating >= 1 ? (<FontAwesomeIcon id="rating_star1" style={{color: "yellow"}}
+														 icon={solid('star')}
+														 onClick={() => handleStarClick(1)}/>) : (
+							 <FontAwesomeIcon id="rating_star1" style={{color: "white"}}
+											  icon={solid('star')}
+											  onClick={() => handleStarClick(1)}/>)} </i>
+					<i> {rating >= 2 ? (<FontAwesomeIcon id="rating_star2" style={{color: "yellow"}}
+														 icon={solid('star')}
+														 onClick={() => handleStarClick(2)}/>) : (
+							 <FontAwesomeIcon id="rating_star2" style={{color: "white"}}
+											  icon={solid('star')}
+											  onClick={() => handleStarClick(2)}/>)} </i>
+					<i> {rating >= 3 ? (<FontAwesomeIcon id="rating_star3" style={{color: "yellow"}}
+														 icon={solid('star')}
+														 onClick={() => handleStarClick(3)}/>) : (
+							 <FontAwesomeIcon id="rating_star3" style={{color: "white"}}
+											  icon={solid('star')}
+											  onClick={() => handleStarClick(3)}/>)} </i>
+					<i> {rating >= 4 ? (<FontAwesomeIcon id="rating_star4" style={{color: "yellow"}}
+														 icon={solid('star')}
+														 onClick={() => handleStarClick(4)}/>) : (
+							 <FontAwesomeIcon id="rating_star4" style={{color: "white"}}
+											  icon={solid('star')}
+											  onClick={() => handleStarClick(4)}/>)} </i>
+					<i> {rating >= 5 ? (<FontAwesomeIcon id="rating_star5" style={{color: "yellow"}}
+														 icon={solid('star')}
+														 onClick={() => handleStarClick(5)}/>) : (
+							 <FontAwesomeIcon id="rating_star5" style={{color: "white"}}
+											  icon={solid('star')}
+											  onClick={() => handleStarClick(5)}/>)} </i>
+				</div>) : null}
 
 				<div className="plot">
 					<img src={selected.Poster} />
