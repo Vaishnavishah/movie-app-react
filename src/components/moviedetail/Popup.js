@@ -51,6 +51,7 @@ function Popup({ selected, closePopup }) {
 			}
 			dispatch(createReviewThunk(newReview));
 			console.log(newReview);
+			setWriteReview('');
 		} else {
 			alert("Please login or sign up to write reviews for this movie!!");
 		}
@@ -156,6 +157,7 @@ function Popup({ selected, closePopup }) {
 								   cols="20"
 								   placeholder="Write a review?"
 								   rows="3"
+								   value = {writeReview}
 								   onChange={(event) => setWriteReview(event.target.value)}>
                         </textarea>
 					</form>

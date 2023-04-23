@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useLocation, useNavigate } from "react-router";
+import {useLocation, useNavigate} from "react-router";
 import { profileThunk } from "../../services/auth-thunks.js";
-import { getUser } from "../../services/auth-service";
 import { Link } from 'react-router-dom';
+import {getUser} from "../../services/auth-service";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {solid} from "@fortawesome/fontawesome-svg-core/import.macro";
 
 import UserReview from "../review-in-profile";
+
 
 
 function Profile() {
@@ -24,7 +25,8 @@ function Profile() {
     const func = async () => {
         // run asynchronous tasks here
         const { payload } = await dispatch(profileThunk());
-        console.log(payload);
+        console.log("curr user = " +payload);
+
         if (payload === undefined) {
             navigate("/login");
             return null;
@@ -40,7 +42,7 @@ function Profile() {
     }
     useEffect(() => {
         const paths = pathname.split('/');
-        if (paths.length === 3) {
+        if(paths.length === 3) {
             const uid = paths[2];
             func2(uid);
         } else {
@@ -61,7 +63,7 @@ function Profile() {
     }
 
     return (
-        <>
+    <>
         <div>
             {profile && (
                 <div>
@@ -70,9 +72,8 @@ function Profile() {
                         {profile.profilePhoto ? <div><img src={profile.profilePhoto} style={styles.bottomLeftImg}></img></div> : <div><img src={userSrc} style={styles.bottomLeftImg}></img></div> }
                     </div>
                     <div className="d-flex flex-row-reverse" style={styles.buttonContainer}>
-                        {isCurrUser ? <Link to="/profile/edit">
-                            <a class="btn btn-primary rounded-pill" href="#" role="button"
-                               style={styles.buttonStyle}><b>Edit Profile</b></a>
+                         {isCurrUser ?<Link to="/profile/edit">
+                            <a class="btn btn-primary rounded-pill" href="#" role="button" style={styles.buttonStyle}><b>Edit Profile</b></a>
                         </Link> : null}
                     </div>
                     <h4 className='m-0'><b>{profile.firstName} {profile.lastName}</b></h4>

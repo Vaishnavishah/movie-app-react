@@ -7,6 +7,9 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import Result from "../movies/Result";
 import {updateReviewThunk, deleteReviewThunk} from "../../services/review/review-thunk";
+import { ToastContainer, toast } from 'react-toastify';
+
+  import 'react-toastify/dist/ReactToastify.css';
 
 function ReviewItem(
  {
@@ -18,6 +21,8 @@ function ReviewItem(
             }
  }
 ) {
+
+const { currentUser } = useSelector((state) => state.user);
 const [movie, setMovie] = useState('');
 let [writeReview, setWriteReview] = useState(review.review);
 const omdbapiurl = "http://www.omdbapi.com/?apikey=dfe6d885";
@@ -30,6 +35,9 @@ const searchMovie = (id) => {
             });
         }
 
+
+
+
 const handleUpdateClick = () => {
 
     const newReview = {
@@ -41,6 +49,9 @@ const handleUpdateClick = () => {
 
           dispatch(updateReviewThunk(newReview));
           console.log(newReview);
+          toast.success('Review Updated!', {
+                      position: toast.POSITION.BOTTOM_CENTER
+                  });
 }
 
 const handleDeleteClick = () => {
@@ -60,6 +71,7 @@ useEffect(() => {
         <span className="fw-bold">
                {movie.Title}
         </span>
+        {currentUser._id === review.userID ?
         <span>
             <form>
             	<textarea  name="review"
@@ -71,9 +83,14 @@ useEffect(() => {
                        onChange={(event) => setWriteReview(event.target.value)}>
                 </textarea>
             </form>
+        </span> :
+        <span>
+            <p><b>Review : {review.review}</b></p>
         </span>
-        <button className = "btn btn-secondary" onClick = {handleUpdateClick} > Update</button>
+        }
+        {currentUser._id === review.userID ? (<div><button className = "btn btn-secondary" onClick = {handleUpdateClick} > Update</button>
         <button className="btn btn-danger" onClick = {handleDeleteClick} >Delete</button>
+        <ToastContainer/></div>) : null }
   </div>
 </>
 
