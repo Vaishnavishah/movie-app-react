@@ -18,6 +18,7 @@ function Profile() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const {pathname} = useLocation();
+    const [isCurrUser, setIsCurrUser] = useState(false);
 
     const func = async () => {
         // run asynchronous tasks here
@@ -43,6 +44,7 @@ function Profile() {
             func2(uid);
         } else {
             func();
+            setIsCurrUser(true);
         }
     }, []);
 
@@ -61,7 +63,7 @@ function Profile() {
                 <div>
                     <div style={styles.imgContainer}>
                         <img src="images/download1.png" style={styles.mainContentImg} />
-                        {profile.photo ? <div><img src={profile.profilePhoto} style={styles.bottomLeftImg}></img></div> : <div><img src="images/user.png" style={styles.bottomLeftImg}></img></div> }
+                        {profile.profilePhoto ? <div><img src={profile.profilePhoto} style={styles.bottomLeftImg}></img></div> : <div><img src="images/user.png" style={styles.bottomLeftImg}></img></div> }
                     </div>
                     <div className="d-flex flex-row-reverse" style={styles.buttonContainer}>
                         <Link to="/profile/edit">
