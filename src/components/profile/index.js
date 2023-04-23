@@ -2,15 +2,14 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {useLocation, useNavigate} from "react-router";
 import { profileThunk } from "../../services/auth-thunks.js";
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faLocationDot, faCakeCandles, faCalendarDays } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link } from 'react-router-dom';
 import {getUser} from "../../services/auth-service";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {solid} from "@fortawesome/fontawesome-svg-core/import.macro";
 
 import UserReview from "../review-in-profile";
 
-library.add(faLocationDot, faCakeCandles, faCalendarDays);
+
 
 function Profile() {
 
@@ -58,7 +57,6 @@ function Profile() {
     return (
     <>
         <div>
-            <h1>Profile Screen</h1>
             {profile && (
                 <div>
                     <div style={styles.imgContainer}>
@@ -73,9 +71,9 @@ function Profile() {
                     <h4 className='m-0'><b>{profile.firstName} {profile.lastName}</b></h4>
                     <p>@{profile.username}</p>
                     <div className="d-flex justify-content-between align-items-center text-muted" style={{ width: '80%' }}>
-                        {profile.genre ? <div><FontAwesomeIcon icon="fa-solid fa-location-dot" /> {profile.genre}</div> : null}
-                        {profile.dob ? <div><FontAwesomeIcon icon="fa-solid fa-cake-candles" /> {new Date(profile.dob).toDateString()}</div>: null}
-                        <div><FontAwesomeIcon icon="fa-solid fa-calendar-days" /> {profile.email}</div>
+                        {profile.genre ? <div><FontAwesomeIcon icon={solid("film")} /> &nbsp; {profile.genre}</div> : null}
+                        {profile.dob ? <div><FontAwesomeIcon icon={solid("cake-candles")} /> &nbsp; {new Date(profile.dob).toDateString()}</div>: null}
+                        <div><FontAwesomeIcon icon={solid("envelope")} /> &nbsp; {profile.email}</div>
                     </div>
                 </div>
             )}
