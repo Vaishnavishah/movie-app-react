@@ -19,11 +19,14 @@ function Profile() {
     const navigate = useNavigate();
     const {pathname} = useLocation();
     const [isCurrUser, setIsCurrUser] = useState(false);
+    const userSrc = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUW0u5Eiiy3oM6wcpeEE6sXCzlh8G-tX1_Iw&usqp=CAU';
+     const imageSrc = 'https://cdn.vectorstock.com/i/preview-1x/44/47/banner-for-science-fiction-movie-festival-vector-27094447.webp';
 
     const func = async () => {
         // run asynchronous tasks here
         const { payload } = await dispatch(profileThunk());
-        console.log(payload);
+        console.log("curr user = " +payload);
+
         if (payload === undefined) {
             navigate("/login");
             return null;
@@ -46,7 +49,10 @@ function Profile() {
             func();
             setIsCurrUser(true);
         }
-    }, []);
+    }, [pathname]);
+
+
+
 
     const styles = {
         imgContainer: { position: "relative", textAlign: "center", color: "white", marginBottom: "10px" },
@@ -62,8 +68,8 @@ function Profile() {
             {profile && (
                 <div>
                     <div style={styles.imgContainer}>
-                        <img src="images/download1.png" style={styles.mainContentImg} />
-                        {profile.profilePhoto ? <div><img src={profile.profilePhoto} style={styles.bottomLeftImg}></img></div> : <div><img src="images/user.png" style={styles.bottomLeftImg}></img></div> }
+                        <img src={imageSrc} style={styles.mainContentImg} />
+                        {profile.profilePhoto ? <div><img src={profile.profilePhoto} style={styles.bottomLeftImg}></img></div> : <div><img src={userSrc} style={styles.bottomLeftImg}></img></div> }
                     </div>
                     <div className="d-flex flex-row-reverse" style={styles.buttonContainer}>
                         <Link to="/profile/edit">
