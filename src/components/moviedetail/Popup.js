@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from "react";
-import {createReview} from "../../reducers/review-reducer";
 import {useDispatch} from "react-redux";
 import {useSelector} from "react-redux";
 import ReviewList from "./Review-list";
@@ -7,27 +6,40 @@ import {createReviewThunk} from "../../services/review/review-thunk";
 
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {solid} from "@fortawesome/fontawesome-svg-core/import.macro";
-import axios from "axios";
 import {profileThunk} from "../../services/auth-thunks";
 import {deleteFavouriteThunk, createFavouriteThunk} from "../../services/favourite/favourite-thunk";
 import {
 	getFavouriteByUserandMovie
 } from "../../services/favourite/favourite-service";
+import {
+	createRating,
+	findMovieRating,
+	findRatingByUserandMovie
+} from "../../services/rating/rating-service";
 
 function Popup({ selected, closePopup }) {
 	let [writeReview, setWriteReview] = useState('');
 	const dispatch = useDispatch();
-	const review_list = useSelector(state => state.reviews)
 	const {currentUser} = useSelector(state => state.user)
 	const [response, setResponse] = useState('');
 	const [profile, setProfile] = useState('');
 	const [flag, setFlag] = useState(false);
+	const [rating, setRating] = useState();
+	const [avgRating, setAvgRating] = useState(0);
 
 	useEffect(() => {
-		dispatch(profileThunk())
+
+		async function func() {
+			await dispatch(profileThunk());
+			await findRatingByUserandMovie(currentUser._id, selected.imdbID).then(data => {
+				console.log("rating data", data);
+				let response = data;
+				setRating(response.data[0].rating);
+			})
+		}
+
+		func();
 	}, [])
-
-
 
 	const handleSubmit = () => {
 		console.log("currentUser" + currentUser);
@@ -43,6 +55,17 @@ function Popup({ selected, closePopup }) {
 			alert("Please login or sign up to write reviews for this movie!!");
 		}
 	}
+
+	useEffect(() => {
+		findMovieRating(selected.imdbID).then(data => {
+			console.log("count ", data);
+			if(data === null) {
+				setAvgRating(0);
+			} else {
+				setAvgRating(data);
+			}
+		})
+	}, [rating]);
 
 	useEffect(() => {
 		async function fetchData() {
@@ -87,23 +110,46 @@ function Popup({ selected, closePopup }) {
 		}
 	}
 
+	const handleStarClick = async (id) => {
+		if (profile.length <= 0) {
+			alert("Please log in first!");
+		} else {
+			const newRating = {
+				userID: profile._id,
+				movieID: selected.imdbID,
+				rating: id
+			}
+			console.log("new rating", newRating);
+			await createRating(newRating);
+			setRating(id);
+		}
+	};
+
 
 	return (
 		<section className="popup">
 			<div className="content">
-				<h2>{ selected.Title } <span>({ selected.Year })</span></h2>
-				{/*<p className="rating">Rating: {selected.imdbRating}</p>*/}
-				{response.length > 0 ? (<span>
+				<h2>{ selected.Title } <span>({ selected.Year })</span> &nbsp;
+					{response.length > 0 ? (<span>
 					<FontAwesomeIcon style={{padding: "2px;", color:"red"}} icon={solid('heart')}
 									 onClick={handleHeartClick}/> </span>) :  (<span>
 					<FontAwesomeIcon style={{padding: "2px;"}} icon={solid('heart')}
 									 onClick={handleHeartClick}/> </span>)}
+				</h2>
+				<p className="rating">IMDB Ratings: {selected.imdbRating}</p>
+				<p className="rating">User Ratings: {avgRating}</p>
+				<div className="rating">
+					<i> {rating >= 1 ? (<FontAwesomeIcon id="rating_star1" style={{color:"yellow"}}  icon={solid('star')} onClick={() => handleStarClick(1)}/>) : (<FontAwesomeIcon id="rating_star1" style={{color:"white"}}  icon={solid('star')} onClick={() => handleStarClick(1)}/>) } </i>
+					<i> {rating >= 2 ? (<FontAwesomeIcon id="rating_star2" style={{color:"yellow"}}  icon={solid('star')} onClick={() => handleStarClick(2)}/>) : (<FontAwesomeIcon id="rating_star2" style={{color:"white"}}  icon={solid('star')} onClick={() => handleStarClick(2)}/>) } </i>
+					<i> {rating >= 3 ? (<FontAwesomeIcon id="rating_star3" style={{color:"yellow"}}  icon={solid('star')} onClick={() => handleStarClick(3)}/>) : (<FontAwesomeIcon id="rating_star3" style={{color:"white"}}  icon={solid('star')} onClick={() => handleStarClick(3)}/>) } </i>
+					<i> {rating >= 4 ? (<FontAwesomeIcon id="rating_star4" style={{color:"yellow"}}  icon={solid('star')} onClick={() => handleStarClick(4)}/>) : (<FontAwesomeIcon id="rating_star4" style={{color:"white"}}  icon={solid('star')} onClick={() => handleStarClick(4)}/>) } </i>
+					<i> {rating >= 5 ? (<FontAwesomeIcon id="rating_star5" style={{color:"yellow"}}  icon={solid('star')} onClick={() => handleStarClick(5)}/>) : (<FontAwesomeIcon id="rating_star5" style={{color:"white"}}  icon={solid('star')} onClick={() => handleStarClick(5)}/>) } </i>
+				</div>
 
 				<div className="plot">
 					<img src={selected.Poster} />
 					<p>{selected.Plot}</p>
 					<p><b> Reviews </b></p>
-
 					<form>
 					    <textarea  name="review"
 								   id="write-review"
