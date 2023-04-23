@@ -17,6 +17,7 @@ function Profile() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { pathname } = useLocation();
+    const [otherUser, setOtherUser] = useState(false);
     const func = async () => {
         // run asynchronous tasks here
         const { payload } = await dispatch(profileThunk());
@@ -39,6 +40,7 @@ function Profile() {
         if (paths.length === 3) {
             const uid = paths[2];
             func2(uid);
+            setOtherUser(true);
         } else {
             func();
         }
@@ -60,11 +62,11 @@ function Profile() {
                         <img src="https://payload.cargocollective.com/1/11/367710/13568488/MOVIECLASSICSerikweb_2500_2500.jpg" style={styles.mainContentImg} />
                         <div><img src={profile.profilePhoto} style={styles.bottomLeftImg}></img></div>
                     </div>
-                    <div className="d-flex flex-row-reverse" style={styles.buttonContainer}>
+                    {!otherUser && (<div className="d-flex flex-row-reverse" style={styles.buttonContainer}>
                         <Link to="/profile/edit">
                             <a class="btn btn-primary rounded-pill" href="#" role="button" style={styles.buttonStyle}><b>Edit Profile</b></a>
                         </Link>
-                    </div>
+                    </div>)}
                     <h4 className='m-0'><b>{profile.firstName} {profile.lastName}</b></h4>
                     <p>@{profile.username}</p>
                     <div className="d-flex justify-content-between align-items-center text-muted" style={{ width: '80%' }}>
