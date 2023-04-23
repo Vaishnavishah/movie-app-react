@@ -16,6 +16,8 @@ import {
 	findMovieRating,
 	findRatingByUserandMovie
 } from "../../services/rating/rating-service";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Popup({ selected, closePopup }) {
 	let [writeReview, setWriteReview] = useState('');
@@ -57,7 +59,9 @@ function Popup({ selected, closePopup }) {
 			console.log(newReview);
 			setWriteReview('');
 		} else {
-			alert("Please login or sign up to write reviews for this movie!!");
+			toast.error("Please log in first!", {
+				position: toast.POSITION.BOTTOM_CENTER
+			});
 		}
 	}
 
@@ -93,7 +97,9 @@ function Popup({ selected, closePopup }) {
 
 	const handleHeartClick = async () => {
 		if (profile.length <= 0) {
-			alert("Please log in first!");
+			toast.error("Please log in first!", {
+				position: toast.POSITION.BOTTOM_CENTER
+			});
 		} else {
 			const newFavourite = {
 				userID: profile._id,
@@ -117,7 +123,9 @@ function Popup({ selected, closePopup }) {
 
 	const handleStarClick = async (id) => {
 		if (profile.length <= 0) {
-			alert("Please log in first!");
+			toast.error("Please log in first!", {
+				position: toast.POSITION.BOTTOM_CENTER
+			});
 		} else {
 			const newRating = {
 				userID: profile._id,
@@ -198,6 +206,7 @@ function Popup({ selected, closePopup }) {
 				<br/>
 				<ReviewList selected = {selected} />
 			</div>
+			<ToastContainer/>
 		</section>
 	)
 }

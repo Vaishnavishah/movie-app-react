@@ -10,6 +10,7 @@ import {updateReviewThunk, deleteReviewThunk} from "../../services/review/review
 import { ToastContainer, toast } from 'react-toastify';
 
   import 'react-toastify/dist/ReactToastify.css';
+import {profileThunk} from "../../services/auth-thunks";
 
 function ReviewItem(
  {
@@ -71,7 +72,7 @@ useEffect(() => {
         <span className="fw-bold">
                {movie.Title}
         </span>
-        {currentUser._id === review.userID ?
+        {currentUser?._id === review.userID ?
         <span>
             <form>
             	<textarea  name="review"
@@ -88,7 +89,7 @@ useEffect(() => {
             <p><b>Review : {review.review}</b></p>
         </span>
         }
-        {currentUser._id === review.userID ? (<div><button className = "btn btn-secondary" onClick = {handleUpdateClick} > Update</button>
+        {currentUser?._id === review.userID ? (<div><button className = "btn btn-secondary" onClick = {handleUpdateClick} > Update</button>
         <button className="btn btn-danger" onClick = {handleDeleteClick} >Delete</button>
         <ToastContainer/></div>) : null }
   </div>

@@ -88,7 +88,7 @@ const Signup = () => {
        };
 
     const signup = async () => {
-        if(!user.username || !user.firstName || !user.lastName || !user.password || !user.email) {
+        if(!user.username || !user.firstName || !user.lastName || !user.password || !user.email || !user.dob) {
             setError("Please fill in all required fields.");
             return;
         }
@@ -104,7 +104,7 @@ const Signup = () => {
               <div>
                      <div class="row">
                             <div class="col-sm-3">
-                                   <h6 class="mb-0">Username</h6>
+                                   <h6 class="mb-0">Username*</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
                                    <input className="mb-2 form-control" type="text" value={username}
@@ -115,7 +115,7 @@ const Signup = () => {
                      <hr />
                      <div class="row">
                             <div class="col-sm-3">
-                                   <h6 class="mb-0">First Name</h6>
+                                   <h6 class="mb-0">First Name*</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
                                    <input className="mb-2 form-control" type="text" value={firstName}
@@ -126,7 +126,7 @@ const Signup = () => {
                      <hr />
                      <div class="row">
                             <div class="col-sm-3">
-                                   <h6 class="mb-0">Last Name</h6>
+                                   <h6 class="mb-0">Last Name*</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
                                    <input className="mb-2 form-control" type="text" value={lastName}
@@ -137,7 +137,7 @@ const Signup = () => {
                      <hr />
                      <div class="row">
                             <div class="col-sm-3">
-                                   <h6 class="mb-0">Birth Date</h6>
+                                   <h6 class="mb-0">Birth Date*</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
                                    <input className="mb-2 form-control" type="date" value={dob}
@@ -163,7 +163,7 @@ const Signup = () => {
                      <hr />
                      <div class="row">
                             <div class="col-sm-3">
-                                   <h6 class="mb-0">Password</h6>
+                                   <h6 class="mb-0">Password*</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
                                    <input className="mb-2 form-control" type="password" value={password}
@@ -174,7 +174,7 @@ const Signup = () => {
                      <hr />
                      <div class="row">
                             <div class="col-sm-3">
-                                   <h6 class="mb-0">Email</h6>
+                                   <h6 class="mb-0">Email*</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
                                    <input className="mb-2 form-control" type="text" value={email}
