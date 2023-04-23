@@ -7,6 +7,9 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import Result from "../movies/Result";
 import {updateReviewThunk, deleteReviewThunk} from "../../services/review/review-thunk";
+import { ToastContainer, toast } from 'react-toastify';
+
+  import 'react-toastify/dist/ReactToastify.css';
 
 function ReviewItem(
  {
@@ -32,6 +35,9 @@ const searchMovie = (id) => {
             });
         }
 
+
+
+
 const handleUpdateClick = () => {
 
     const newReview = {
@@ -43,6 +49,9 @@ const handleUpdateClick = () => {
 
           dispatch(updateReviewThunk(newReview));
           console.log(newReview);
+          toast.success('Review Updated!', {
+                      position: toast.POSITION.BOTTOM_CENTER
+                  });
 }
 
 const handleDeleteClick = () => {
@@ -79,8 +88,9 @@ useEffect(() => {
             <p><b>Review : {review.review}</b></p>
         </span>
         }
-        {currentUser._id === review.userID ? <button className = "btn btn-secondary" onClick = {handleUpdateClick} > Update</button>: null }
-        {currentUser._id === review.userID ? <button className="btn btn-danger" onClick = {handleDeleteClick} >Delete</button> : null}
+        {currentUser._id === review.userID ? (<div><button className = "btn btn-secondary" onClick = {handleUpdateClick} > Update</button>
+        <button className="btn btn-danger" onClick = {handleDeleteClick} >Delete</button>
+        <ToastContainer/></div>) : null }
   </div>
 </>
 
