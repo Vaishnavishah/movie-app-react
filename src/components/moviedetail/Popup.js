@@ -71,7 +71,7 @@ function Popup({ selected, closePopup }) {
 			if(data === null) {
 				setAvgRating(0);
 			} else {
-				setAvgRating(data);
+				setAvgRating(data.toFixed(2));
 			}
 		})
 	}, [rating]);

@@ -16,6 +16,7 @@ const Signup = () => {
        const [genre, setGenre] = useState("");
        const [imageSelector, setImageSelector] = useState(false);
        const [error, setError] = useState("");
+       const [critic, setCritic] = useState(false);
        const navigate = useNavigate();
        const dispatch = useDispatch();
 
@@ -84,7 +85,8 @@ const Signup = () => {
               dob: dob, genre: genre,
               profilePhoto: profilePhoto,
               password: password,
-              email: email
+              email: email,
+              isCritic: critic
        };
 
     const signup = async () => {
@@ -194,6 +196,15 @@ const Signup = () => {
                             </div>
                      </div>
                      <hr />
+                  <div class="row">
+                      <div>
+                          <input type="checkbox" value={critic} style={{display: "inline-block"}}
+                                 onChange={(event) => setCritic(event.target.checked)}
+                          /> &nbsp;
+                          <h6 className="mb-0" style={{display: "inline-block"}}>Do you wish to be a critic?</h6>
+                      </div>
+                  </div>
+                  <hr />
                      {error && <p className="text-danger">{error}</p>}
                      <button onClick={signup}
                             className="btn btn-primary mb-5">Signup
