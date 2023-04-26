@@ -20,15 +20,17 @@ const Login = () => {
             return;
         }
         try {
-            await dispatch(loginThunk({ username, password }));
-            if(!currentUser) {
-                toast.error('Incorrect Password or Username', {
-                    position: toast.POSITION.BOTTOM_CENTER
-                });
-            } else {
-                await setLogin(true);
-                await navigate("/profile");
-            }
+            await dispatch(loginThunk({ username, password })).then( data => {
+                let result = data.payload;
+                if(!result) {
+                    toast.error('Incorrect Password or Username', {
+                        position: toast.POSITION.BOTTOM_CENTER
+                    });
+                } else {
+                    setLogin(true);
+                    navigate("/profile");
+                }
+            });
         } catch (e) {
             alert(e);
         }
