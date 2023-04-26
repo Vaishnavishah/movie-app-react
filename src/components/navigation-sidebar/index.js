@@ -1,9 +1,9 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Link } from "react-router-dom";
 import { useLocation, useNavigate } from "react-router";
 import 'bootstrap/dist/css/bootstrap.css';
 import { useDispatch, useSelector } from "react-redux";
-import { logoutThunk } from "../../services/auth-thunks";
+import {logoutThunk, profileThunk} from "../../services/auth-thunks";
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faFilm, faStar, faUser, faCircleXmark, faCircleCheck, faUserPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -19,6 +19,10 @@ const NavigationSidebar = () => {
     const paths = pathname.split('/')
     const active = paths[2];
     const { currentUser } = useSelector(state => state.user)
+
+    useEffect(() => {
+        dispatch(profileThunk());
+    });
 
     return (
         <div>
